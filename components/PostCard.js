@@ -6,7 +6,7 @@ const PostCard = ({ post }) => {
     <Link href={`/posts/${post.slug}`}>
       <div className="border rounded-lg">
         <img
-          src={`https://chakkun1121.githib.io/img/${post.frontMatter.image}`}
+          src={`https://chakkun1121.githib.io/blog/img/${post.frontMatter.image}`}
           width={1200}
           height={700}
           alt={post.frontMatter.title}

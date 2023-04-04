@@ -36,7 +36,7 @@ const Post = ({ frontMatter, content, slug }) => {
           description: frontMatter.description,
           images: [
             {
-              url: `https://chakkun1121.github.io/blog/${frontMatter.image}`,
+              url: `https://chakkun1121.github.io/blog/img/${frontMatter.image}`,
               width: 1200,
               height: 700,
               alt: frontMatter.title,
@@ -47,8 +47,8 @@ const Post = ({ frontMatter, content, slug }) => {
       <div className="prose prose-lg max-w-none">
         {" "}
         <div className="border">
-          <Image
-            src={`/${frontMatter.image}`}
+          <img
+            src={`https://chakkun1121.github.io/blog/img//${frontMatter.image}`}
             width={1200}
             height={700}
             alt={frontMatter.title}
