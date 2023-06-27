@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/font": "13.1.5",
+    "@next/font": "13.4.4",
     "gray-matter": "^4.0.3",
     "marked": "^4.2.12",
     "next": "13.1.5",
