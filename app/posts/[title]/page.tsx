@@ -31,3 +31,10 @@ export async function render({
     notFound();
   }
 }
+export async function generateMetadata({ params }) {
+  try {
+    const file = await getFile(params.title, params.page);
+    const { data }: { data: postType } = fileToHTML(file);
+    return { title: data.title, description: data.description };
+  } catch (e) {}
+}
