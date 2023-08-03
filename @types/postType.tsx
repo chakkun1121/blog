@@ -4,4 +4,5 @@ export interface postType {
   link: string;
   description: string;
   date: string;
+  isShow?: boolean;
 }

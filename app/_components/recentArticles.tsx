@@ -41,6 +41,7 @@ export default async function RecentArticles({
     <>
       {posts.map((post, index) => {
         if (maxPosts && index >= maxPosts) return;
+        if (post.isShow === false) return;
         return <PostCard post={post} key={index} />;
       })}
     </>
