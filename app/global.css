@@ -24,7 +24,7 @@ a:visited {
   @apply text-L text-sea-800 hover:underline;
 }
 pre {
-  @apply m-8 rounded-md border border-gray-300 bg-gray-100 p-2;
+  @apply m-8 overflow-x-auto rounded-md border border-gray-300 bg-gray-100 p-2;
 }
 ul {
   @apply ml-4;
