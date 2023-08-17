@@ -4,7 +4,7 @@ import { fileToHTML } from "./fileToHTML";
 import ReactHtmlParser from "react-html-parser";
 import { postType } from "../../../@types/postType";
 export default async function PostPage(props: { params: { title: string } }) {
-  return render(props);
+  return await render(props);
 }
 export async function render({
   params,
@@ -41,9 +41,7 @@ import React, { ReactNode } from "react";
 function BlogLayout({ children }: { children: React.ReactNode }) {
   // childrenの中身(ReactNode)をバラす
   // <><>{data}</><>{content}</></> を <>{data}</> <>{content}</> にする
-  console.log(React.Children.toArray(children).length);
   const [data, content]: ReactNode[] = React.Children.toArray(children);
-  console.log(content);
   return (
     <>
       <div>{data}</div>
