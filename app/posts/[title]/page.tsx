@@ -18,14 +18,12 @@ export async function render({
     const file = await getFile(params.title, params.page);
     const { html, data }: { html: string; data: postType } = fileToHTML(file);
     return (
-      <>
-        <>
-          <p>
-            投稿日:{new Date(data?.date || "")?.toLocaleDateString() || "不明"}
-          </p>
-        </>
+      <BlogLayout>
+        <p>
+          投稿日:{new Date(data?.date || "")?.toLocaleDateString() || "不明"}
+        </p>
         <>{ReactHtmlParser(html)}</>
-      </>
+      </BlogLayout>
     );
   } catch (e) {
     notFound();
@@ -37,4 +35,19 @@ export async function generateMetadata({ params }) {
     const { data }: { data: postType } = fileToHTML(file);
     return { title: data.title, description: data.description };
   } catch (e) {}
+}
+import React, { ReactNode } from "react";
+
+function BlogLayout({ children }: { children: React.ReactNode }) {
+  // childrenの中身(ReactNode)をバラす
+  // <><>{data}</><>{content}</></> を <>{data}</> <>{content}</> にする
+  console.log(React.Children.toArray(children).length);
+  const [data, content]: ReactNode[] = React.Children.toArray(children);
+  console.log(content);
+  return (
+    <>
+      <div>{data}</div>
+      <article className="p-2">{content}</article>
+    </>
+  );
 }
