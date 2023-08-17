@@ -3,7 +3,7 @@ import "./global.css";
 import Header from "./_components/header";
 import Footer from "./_components/footer";
 import GoogleAnalytics from "./GoogleAnalytics";
-const siteTitle = "chakkun1121's blog | chakkun1121";
+export const siteTitle = "chakkun1121's blog | chakkun1121";
 const siteDescription =
   "和訳表示サイトなど個人開発を行っているchakkun1121のブログです。";
 const siteUrl = "https://chakkun1121-blog.vercel.app/";
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }) {
   return (
     <html lang="ja" className="">
-      <GoogleAnalytics/>
+      <GoogleAnalytics />
       <body className="flex min-h-screen flex-col">
         <Header />
         <div className="mb-36 mt-14 w-full flex-grow px-6">

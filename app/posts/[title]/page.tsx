@@ -33,10 +33,27 @@ export async function generateMetadata({ params }) {
   try {
     const file = await getFile(params.title, params.page);
     const { data }: { data: postType } = fileToHTML(file);
-    return { title: data.title, description: data.description };
+    const siteUrl = "https://chakkun1121-blog.vercel.app/posts/" + params.title;
+    return {
+      title: data.title,
+      description: data.description,
+      alternates: {
+        canonical: siteUrl,
+      },
+      openGraph: {
+        title: data.title,
+        type: "website",
+        locale: "ja_JP",
+        url: siteUrl,
+        siteName: siteTitle,
+        images: `./img/${params.title}.webp`,
+        description: data.description,
+      },
+    };
   } catch (e) {}
 }
 import React, { ReactNode } from "react";
+import { siteTitle } from "../../layout";
 
 function BlogLayout({ children }: { children: React.ReactNode }) {
   // childrenの中身(ReactNode)をバラす
