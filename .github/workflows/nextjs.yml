@@ -31,11 +31,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Detect package manager
+        id: detect-package-manager
+        run: |
+          echo "manager=npm" >> $GITHUB_OUTPUT
+          echo "command=i" >> $GITHUB_OUTPUT
+          echo "runner=npx" >> $GITHUB_OUTPUT
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: "20"
-          cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Setup Pages
         uses: actions/configure-pages@v3
         with:
@@ -45,13 +50,13 @@ jobs:
           # You may remove this line if you want to manage the configuration yourself.
           static_site_generator: next
       - name: Install dependencies
-        run: npm install
+        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
-        run: npx next build
+        run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Static HTML export with Next.js
-        run: npx next export
+        run: ${{ steps.detect-package-manager.outputs.runner }} next export
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
         with:
           path: ./out
 
