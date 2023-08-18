@@ -5,7 +5,7 @@ export default function Header() {
     <header className="bg-yellow-200 p-2">
       <Link
         href="/"
-        className="text-black visited:text-black hover:no-underline"
+        className="text-black visited:text-black no-underline "
       >
         <h1>chakkun1121's blog</h1>
       </Link>
