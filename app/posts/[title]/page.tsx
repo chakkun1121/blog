@@ -33,7 +33,7 @@ export async function generateMetadata({ params }) {
   try {
     const file = await getFile(params.title, params.page);
     const { data }: { data: postType } = fileToHTML(file);
-    const siteUrl = "https://chakkun1121-blog.vercel.app/posts/" + params.title+"/";
+    const siteUrl = "https://chakkun1121-blog.vercel.app/posts/" + params.title;
     return {
       title: data.title,
       description: data.description,

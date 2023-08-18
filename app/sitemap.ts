@@ -30,7 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // posts内にisShowがfalseのものがある場合は除外する
   const filteredPosts = posts.filter((post) => post.isShow !== false);
   return filteredPosts.map((post) => ({
-    url: "https://chakkun1121-blog.vercel.app" + post.link + "/",
+    url: "https://chakkun1121-blog.vercel.app" + post.link ,
     lastModified: new Date(post.date).toISOString(),
   }));
 }
