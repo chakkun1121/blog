@@ -21,7 +21,7 @@ button {
 }
 a,
 a:visited {
-  @apply text-L text-sea-800 hover:underline;
+  @apply text-L text-sea-800 underline;
 }
 pre {
   @apply m-8 overflow-x-auto rounded-md border border-gray-300 bg-gray-100 p-2;
