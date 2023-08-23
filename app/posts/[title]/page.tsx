@@ -1,8 +1,12 @@
-import { notFound } from "next/navigation";
-import { getFile } from "./getFile";
+import { notFound, redirect } from "next/navigation";
+import { getFile, isMultiplePageArticle } from "./getFile";
 import { fileToHTML } from "./fileToHTML";
+import { getArticleData } from "./getArticleData";
 import ReactHtmlParser from "react-html-parser";
-import { postType } from "../../../@types/postType";
+import React from "react";
+import { siteTitle } from "../../layout";
+import { BlogLayout } from "./BlogLayout";
+
 export default async function PostPage(props: { params: { title: string } }) {
   return await render(props);
 }
@@ -11,12 +15,17 @@ export async function render({
 }: {
   params: { title: string; page?: number };
 }) {
+  // 複数ページなのにpageがない場合は./1にリダイレクト
+  if (isMultiplePageArticle(params.title) && !params.page) {
+    redirect(`/posts/${params.title}/1`);
+  }
   // 記事は /posts にある
   // /posts/{folderName}/{fileName}.md という形式である(folderName=title)
   // ただし、複数ページにまたがるものはfileNameが1,2,3,...となっている
   try {
     const file = await getFile(params.title, params.page);
-    const { html, data }: { html: string; data: postType } = fileToHTML(file);
+    const html: string = fileToHTML(file);
+    const data = await getArticleData(params.title, params.page);
     return (
       <BlogLayout>
         <p>
@@ -30,10 +39,12 @@ export async function render({
   }
 }
 export async function generateMetadata({ params }) {
+  // Todo: 何故か複数ページの場合はリダイレクト後に機能しない
   try {
-    const file = await getFile(params.title, params.page);
-    const { data }: { data: postType } = fileToHTML(file);
-    const siteUrl = "https://chakkun1121-blog.vercel.app/posts/" + params.title;
+    const data = await getArticleData(params.title, params.page);
+    const siteUrl = `https://chakkun1121-blog.vercel.app/posts/${params.title}${
+      isMultiplePageArticle(params.title) && `/${params.page}`
+    }}`;
     return {
       title: data.title,
       description: data.description,
@@ -50,19 +61,7 @@ export async function generateMetadata({ params }) {
         description: data.description,
       },
     };
-  } catch (e) {}
-}
-import React, { ReactNode } from "react";
-import { siteTitle } from "../../layout";
-
-function BlogLayout({ children }: { children: React.ReactNode }) {
-  // childrenの中身(ReactNode)をバラす
-  // <><>{data}</><>{content}</></> を <>{data}</> <>{content}</> にする
-  const [data, content]: ReactNode[] = React.Children.toArray(children);
-  return (
-    <>
-      <div>{data}</div>
-      <article className="p-2">{content}</article>
-    </>
-  );
+  } catch (e) {
+    console.error(e);
+  }
 }
