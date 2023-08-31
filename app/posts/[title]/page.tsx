@@ -21,7 +21,7 @@ export async function render({
     const file: string = await getFile(params.title, params.page);
     const data = await getArticleData(params.title, params.page);
     // mdのheader部分を除去したファイルを準備する
-    const renderFile: string = file.replace(/---[\s\S]*---/, "");
+    const renderFile: string = file.replace(/^---[\s\S]*?---/, "");
     return (
       <BlogLayout>
         <p>
