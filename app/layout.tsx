@@ -3,13 +3,7 @@ import "./global.css";
 import Header from "./_components/header";
 import Footer from "./_components/footer";
 import GoogleAnalytics from "./GoogleAnalytics";
-import { Noto_Sans_JP } from "next/font/google";
 
-const notojp = Noto_Sans_JP({
-  weight: ["400", "500"],
-  subsets: ["latin"],
-  display: "swap",
-});
 export const siteTitle = "chakkun1121's blog | chakkun1121";
 const siteDescription =
   "和訳表示サイトなど個人開発を行っているchakkun1121のブログです。";
@@ -45,7 +39,7 @@ export const metadata: Metadata = {
 };
 export default function Layout({ children }) {
   return (
-    <html lang="ja" className={notojp.className}>
+    <html lang="ja">
       <GoogleAnalytics />
       <body className="flex min-h-screen flex-col">
         <Header />
