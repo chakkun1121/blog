@@ -1,4 +1,4 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import React from "react";
 import { siteTitle } from "../../layout";
 import { BlogLayout } from "./BlogLayout";
@@ -33,7 +33,7 @@ export default async function PostPage(props: { params: { title: string } }) {
 export async function generateStaticParams() {
   const recentArticles = await getRecentArticles();
   return recentArticles.map((article) => ({
-    title: article.title,
+    title: article.link.replace(/\/posts\//, ""),
   }));
 }
 export async function generateMetadata({ params }) {
