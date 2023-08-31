@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }) {
   return (
     <html lang="ja">
-      <GoogleAnalytics />
+      {/* <GoogleAnalytics /> */}
       <body className="flex min-h-screen flex-col">
         <Header />
         <div className="mb-36 mt-14 w-full flex-grow px-6">
