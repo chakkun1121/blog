@@ -13,6 +13,7 @@ export const siteUrl = isDevMode
   ? "http://localhost:2222/"
   : "https://chakkun1121.github.io/blog/";
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: siteTitle,
     template: `%s | ${siteTitle}`,
@@ -24,14 +25,15 @@ export const metadata: Metadata = {
     locale: "ja_JP",
     url: siteUrl,
     siteName: siteTitle,
-    images: "./img/home.webp",
+    images: "/img/home.webp",
     description: siteDescription,
   },
   twitter: {
     card: "summary_large_image",
+    images: "/img/home.webp",
   },
   alternates: {
-    canonical: siteUrl,
+    canonical: "/",
   },
 };
 export default function Layout({ children }) {

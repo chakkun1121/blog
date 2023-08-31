@@ -1,10 +1,8 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import React from "react";
-import { siteTitle, siteUrl } from "../../layout";
+import { siteTitle } from "../../layout";
 import { BlogLayout } from "./BlogLayout";
-import { isMultiplePageArticle } from "../../lib/isMultiplePageArticle";
 import { getArticleData } from "../../lib/api/getArticleData";
-import { getFile } from "../../lib/api/getFile";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
@@ -18,10 +16,12 @@ export async function render({
   params: { title: string; page?: number };
 }) {
   try {
-    const file: string = await getFile(params.title, params.page);
     const data = await getArticleData(params.title, params.page);
+    if (!params.page && data.page) {
+      redirect(`/posts/${params.title}/1`);
+    }
     // mdのheader部分を除去したファイルを準備する
-    const renderFile: string = file.replace(/^---[\s\S]*?---/, "");
+    const renderFile: string = data.file.replace(/^---[\s\S]*?---/, "");
     return (
       <BlogLayout>
         <p>
@@ -43,8 +43,8 @@ export async function generateMetadata({ params }) {
   // Todo: 何故か複数ページの場合はリダイレクト後に機能しない
   try {
     const data = await getArticleData(params.title, params.page);
-    const currentSiteUrl = `${siteUrl}/posts/${params.title}${
-      isMultiplePageArticle(params.title) && `/${params.page}`
+    const currentSiteUrl = `/posts/${params.title}${
+      data.page && `/${params.page}`
     }}`;
     return {
       title: data.title,

@@ -1,22 +1,24 @@
 import matter from "gray-matter";
 import { NextRequest, NextResponse } from "next/server";
 import { postType } from "../../../../@types/postType";
-import { isMultiplePageArticle } from "../../../lib/isMultiplePageArticle";
-import { getFile } from "../../../lib/api/getFile";
+import { getFile } from "./getFile";
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { title: string } },
-): Promise<NextResponse> {
+export async function getPostData({
+  params,
+}: {
+  params: { title: string; page?: string };
+}): Promise<NextResponse> {
   const title: string = params.title;
-  const { searchParams } = new URL(req.url);
-  const page: number = Number(searchParams.get("page") || "0");
+  const page: number = Number(params.page || "0");
   const file: string = await getFile(title, page);
   const { data } = matter(file) as unknown as {
     data: postType;
   };
-  if (!isMultiplePageArticle(title)) {
-    return NextResponse.json(data);
+  if (!data.page) {
+    return NextResponse.json({
+      ...data,
+      file,
+    });
   }
   const firstPageFile: string = await getFile(title, 1);
   const { data: firstPageData } = matter(firstPageFile) as unknown as {
@@ -25,5 +27,12 @@ export async function GET(
   return NextResponse.json({
     ...firstPageData,
     ...data,
+    file,
   });
+}
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: { title: string } },
+) {
+  return await getPostData({ params });
 }

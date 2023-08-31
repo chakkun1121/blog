@@ -4,7 +4,7 @@ import { siteUrl } from "../../layout";
 export async function getArticleData(
   title: string,
   page?: number,
-): Promise<postType> {
+): Promise<getArticleDataProps> {
   return await fetch(
     siteUrl + `/api/getPostData/${title}${page ? `?page=${page}` : ""}`,
   )
@@ -12,4 +12,7 @@ export async function getArticleData(
     .catch((e) => {
       throw new Error(e);
     });
+}
+interface getArticleDataProps extends postType {
+  file: string;
 }

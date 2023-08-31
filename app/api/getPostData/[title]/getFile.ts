@@ -1,17 +1,7 @@
-import { NextRequest } from "next/server";
-
 import fsPromises from "fs/promises";
 import path from "path";
 import fs from "fs";
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { title: string } },
-): Promise<Response> {
-  const title: string = params.title;
-  console.log(title);
-  const { searchParams } = new URL(req.url);
-  const page: number = Number(searchParams.get("page") || "0");
-  console.log(page);
+export async function getFile(title: string, page?: number): Promise<string> {
   // 記事は /posts にある
   // /posts/{folderName}/{fileName}.md という形式である(folderName=title)
   // ただし、複数ページにまたがるものはfileNameが1,2,3,...となっている
@@ -28,14 +18,9 @@ export async function GET(
       path.join(currentDir, `posts/${title}/${fileName}`),
       "utf-8",
     );
-    return new Response(article, {
-      headers: { "content-type": "text/markdown" },
-    });
+    return article;
   } catch (e) {
     console.error(e);
-    return new Response("ファイルがありません", {
-      status: 404,
-      headers: { "content-type": "text/plain" },
-    });
+    throw new Error("ファイルがありません");
   }
 }
