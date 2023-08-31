@@ -7,6 +7,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
+import { getRecentArticles } from "../../lib/api/getRecentArticles";
 export default async function PostPage(props: { params: { title: string } }) {
   try {
     const data = await getArticleData(props.params.title);
@@ -28,6 +29,12 @@ export default async function PostPage(props: { params: { title: string } }) {
   } catch (e) {
     notFound();
   }
+}
+export async function generateStaticParams() {
+  const recentArticles = await getRecentArticles();
+  return recentArticles.map((article) => ({
+    title: article.title,
+  }));
 }
 export async function generateMetadata({ params }) {
   try {
