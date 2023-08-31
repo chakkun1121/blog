@@ -11,14 +11,11 @@ export const isDevMode = process.env.NODE_ENV === "development";
 //  /あり
 export const siteUrl = isDevMode
   ? "http://localhost:2222/"
-  : "https://chakkun1121-blog.vercel.app/";
+  : "https://chakkun1121.github.io/blog/";
 export const metadata: Metadata = {
   title: {
     default: siteTitle,
     template: `%s | ${siteTitle}`,
-  },
-  verification: {
-    google: "ktl5nTemsY7bVO1Zhtv9pMsD_WeUnwPF2ynUCX54xBY",
   },
   description: siteDescription,
   openGraph: {
