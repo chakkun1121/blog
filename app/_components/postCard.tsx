@@ -9,7 +9,6 @@ export function PostCard({ post }: { post: postType }) {
           href={post?.link}
           className="text-black no-underline visited:text-black"
         >
-          {/* <img src={post?.image} alt={post?.title} /> */}
           <h3>{post?.title}</h3>
           <p className="line-clamp-2 text-M">{post?.description}</p>
         </Link>

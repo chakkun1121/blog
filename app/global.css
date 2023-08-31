@@ -1,6 +1,3 @@
-body {
-  font-family: "noto-sans-jp", "noto-sans";
-}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

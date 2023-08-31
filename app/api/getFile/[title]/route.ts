@@ -1,7 +1,17 @@
+import { NextRequest } from "next/server";
+
 import fsPromises from "fs/promises";
 import path from "path";
 import fs from "fs";
-export async function getFile(title: string, page?: number): Promise<string> {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { title: string } },
+): Promise<Response> {
+  const title: string = params.title;
+  console.log(title);
+  const { searchParams } = new URL(req.url);
+  const page: number = Number(searchParams.get("page") || "0");
+  console.log(page);
   // 記事は /posts にある
   // /posts/{folderName}/{fileName}.md という形式である(folderName=title)
   // ただし、複数ページにまたがるものはfileNameが1,2,3,...となっている
@@ -14,19 +24,18 @@ export async function getFile(title: string, page?: number): Promise<string> {
       : fs.existsSync(path.join(currentDir, `posts/${title}/1.md`))
       ? "1.md"
       : `${title}.md`;
-    return await fsPromises.readFile(
+    const article = await fsPromises.readFile(
       path.join(currentDir, `posts/${title}/${fileName}`),
       "utf-8",
     );
+    return new Response(article, {
+      headers: { "content-type": "text/markdown" },
+    });
   } catch (e) {
     console.error(e);
-    throw Error("ファイルがありません");
+    return new Response("ファイルがありません", {
+      status: 404,
+      headers: { "content-type": "text/plain" },
+    });
   }
-}
-export function isMultiplePageArticle(title: string): boolean {
-  if (typeof title !== "string")
-    throw new Error("titleがstringではありません。title:" + title);
-  const currentDir = process.cwd();
-  const files = fs.readdirSync(path.join(currentDir, `posts/${title}`));
-  return files.length > 1;
 }

@@ -2,11 +2,11 @@ import { MetadataRoute } from "next";
 import path from "path";
 import { postType } from "../@types/postType";
 import fsPromises from "fs/promises";
-import { getArticleData } from "./posts/[title]/getArticleData";
-import { isMultiplePageArticle } from "./posts/[title]/getFile";
+import { isMultiplePageArticle } from "./lib/isMultiplePageArticle";
+import { getArticleData } from "./lib/api/getArticleData";
+import { siteUrl } from "./layout";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const rootUrl = "https://chakkun1121-blog.vercel.app";
   const currentDir = process.cwd();
   const folders = await fsPromises.readdir(path.join(currentDir, "posts"));
   const posts: { url: string; date: string; isShow: boolean }[] =
@@ -16,10 +16,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           title,
         ): Promise<{ url: string; date: string; isShow: boolean }> => {
           const data: postType = await getArticleData(title);
-          const url = `${rootUrl}/posts/${title}${
+          const url = `${siteUrl}posts/${title}${
             isMultiplePageArticle(title) ? "/1" : ""
-          }`;
-          console.debug(data.date);
+          }/`;
           return { url, date: data.date, isShow: data.isShow };
         },
       ),

@@ -3,10 +3,21 @@ import "./global.css";
 import Header from "./_components/header";
 import Footer from "./_components/footer";
 import GoogleAnalytics from "./GoogleAnalytics";
+import { Noto_Sans_JP } from "next/font/google";
+
+const notojp = Noto_Sans_JP({
+  weight: ["400", "500"],
+  subsets: ["latin"],
+  display: "swap",
+});
 export const siteTitle = "chakkun1121's blog | chakkun1121";
 const siteDescription =
   "和訳表示サイトなど個人開発を行っているchakkun1121のブログです。";
-const siteUrl = "https://chakkun1121-blog.vercel.app/";
+export const isDevMode = process.env.NODE_ENV === "development";
+//  /あり
+export const siteUrl = isDevMode
+  ? "http://localhost:2222/"
+  : "https://chakkun1121-blog.vercel.app/";
 export const metadata: Metadata = {
   title: {
     default: siteTitle,
@@ -34,7 +45,7 @@ export const metadata: Metadata = {
 };
 export default function Layout({ children }) {
   return (
-    <html lang="ja" className="">
+    <html lang="ja" className={notojp.className}>
       <GoogleAnalytics />
       <body className="flex min-h-screen flex-col">
         <Header />
