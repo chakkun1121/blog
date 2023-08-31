@@ -7,9 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // isShowがfalseの記事は除外する
   recentArticles.filter((post) => post.isShow);
   return recentArticles.map((post) => ({
-    url: post.page
-      ? `${siteUrl}article${post.link}${post.page}/`
-      : `${siteUrl}article${post.link}`,
+    url: `${siteUrl}${post.link}`.replace(/\/$/, ""),
     lastModified: post.date,
   }));
 }

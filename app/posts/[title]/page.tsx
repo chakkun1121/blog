@@ -8,18 +8,8 @@ import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 export default async function PostPage(props: { params: { title: string } }) {
-  return await render(props);
-}
-export async function render({
-  params,
-}: {
-  params: { title: string; page?: number };
-}) {
   try {
-    const data = await getArticleData(params.title, params.page);
-    if (!params.page && data.page) {
-      redirect(`/posts/${params.title}/1`);
-    }
+    const data = await getArticleData(props.params.title);
     // mdのheader部分を除去したファイルを準備する
     const renderFile: string = data.file.replace(/^---[\s\S]*?---/, "");
     return (
@@ -40,12 +30,9 @@ export async function render({
   }
 }
 export async function generateMetadata({ params }) {
-  // Todo: 何故か複数ページの場合はリダイレクト後に機能しない
   try {
-    const data = await getArticleData(params.title, params.page);
-    const currentSiteUrl = `/posts/${params.title}${
-      data.page && `/${params.page}`
-    }}`;
+    const data = await getArticleData(params.title);
+    const currentSiteUrl = `/posts/${params.title}`;
     return {
       title: data.title,
       description: data.description,

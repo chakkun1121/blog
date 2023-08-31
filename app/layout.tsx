@@ -8,10 +8,9 @@ export const siteTitle = "chakkun1121's blog | chakkun1121";
 const siteDescription =
   "和訳表示サイトなど個人開発を行っているchakkun1121のブログです。";
 export const isDevMode = process.env.NODE_ENV === "development";
-//  /あり
 export const siteUrl = isDevMode
-  ? "http://localhost:2222/"
-  : "https://chakkun1121.github.io/blog/";
+  ? "http://localhost:2222"
+  : "https://chakkun1121.github.io/blog";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -33,13 +32,13 @@ export const metadata: Metadata = {
     images: "/img/home.webp",
   },
   alternates: {
-    canonical: "/",
+    canonical: siteUrl,
   },
 };
 export default function Layout({ children }) {
   return (
     <html lang="ja">
-      {/* <GoogleAnalytics /> */}
+      <GoogleAnalytics />
       <body className="flex min-h-screen flex-col">
         <Header />
         <div className="mb-36 mt-14 w-full flex-grow px-6">
