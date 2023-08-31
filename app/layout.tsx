@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     images: "/img/home.webp",
   },
   alternates: {
-    canonical: siteUrl,
+    canonical: "/",
   },
 };
 export default function Layout({ children }) {
