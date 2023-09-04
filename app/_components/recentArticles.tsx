@@ -1,6 +1,6 @@
 import { PostCard } from "./postCard";
 import { postType } from "../../@types/postType";
-import { getRecentArticles } from "../lib/api/getRecentArticles";
+import { getRecentArticles } from "../lib/getRecentArticles";
 
 export default async function RecentArticles({
   maxPosts,
