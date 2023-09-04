@@ -2,12 +2,12 @@ import { notFound } from "next/navigation";
 import React from "react";
 import { siteTitle } from "../../layout";
 import { BlogLayout } from "./BlogLayout";
-import { getArticleData } from "../../lib/api/getArticleData";
+import { getArticleData } from "../../lib/getArticleData";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
-import { getRecentArticles } from "../../lib/api/getRecentArticles";
+import { getRecentArticles } from "../../lib/getRecentArticles";
 export default async function PostPage(props: { params: { title: string } }) {
   try {
     const data = await getArticleData(props.params.title);

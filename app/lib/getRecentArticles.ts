@@ -1,10 +1,8 @@
-import { NextRequest } from "next/server";
 import fsPromises from "fs/promises";
 import path from "path";
 import matter from "gray-matter";
-import { postType } from "../../../@types/postType";
-
-export async function GET(_req: NextRequest) {
+import { postType } from "../../@types/postType";
+export async function getRecentArticles(): Promise<postType[]> {
   const currentDir = process.cwd();
   // 記事は /posts にある
   // /posts/{fileName}.md という形式である
@@ -28,7 +26,5 @@ export async function GET(_req: NextRequest) {
     else if (a.date > b.date) return -1;
     else return 0;
   });
-  return new Response(JSON.stringify(posts), {
-    headers: { "content-type": "application/json" },
-  });
+  return posts;
 }
