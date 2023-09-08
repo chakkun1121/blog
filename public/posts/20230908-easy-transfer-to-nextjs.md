@@ -1,7 +1,7 @@
 ---
 title: nextjsへの移行の簡単なやり方
 date: 2023-09-08
-description: 生コード(jQueryこみ)のアプリをnextjsに移行する簡単な方法
+description: 生コード(jQueryを含む)のアプリをnextjsに移行する簡単な方法
 ---
 
 <!-- markdownlint-disable MD025 MD033 -->
