@@ -52,7 +52,6 @@ export async function generateMetadata({ params }) {
         locale: "ja_JP",
         url: currentSiteUrl,
         siteName: siteTitle,
-        images: `./img/${params.title}.webp`,
         description: data.description,
       },
     };
