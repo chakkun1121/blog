@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import "./global.css";
 import Header from "./_components/header";
 import Footer from "./_components/footer";
-import GoogleAnalytics from "./GoogleAnalytics";
 
 export const siteTitle = "chakkun1121's blog | chakkun1121";
 const siteDescription =
@@ -38,7 +37,6 @@ export const metadata: Metadata = {
 export default function Layout({ children }) {
   return (
     <html lang="ja">
-      <GoogleAnalytics />
       <body className="flex min-h-screen flex-col">
         <Header />
         <div className="mb-36 mt-14 w-full flex-grow px-6">
