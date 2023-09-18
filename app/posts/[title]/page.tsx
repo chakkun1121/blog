@@ -16,7 +16,8 @@ export default async function PostPage(props: { params: { title: string } }) {
     return (
       <BlogLayout>
         <p>
-          投稿日:{new Date(data?.date || "")?.toLocaleDateString() || "不明"}
+          投稿日:
+          {new Date(data?.date || "")?.toLocaleDateString("ja-JP") || "不明"}
         </p>
         <ReactMarkdown
           rehypePlugins={[rehypeRaw, rehypeSanitize] as any}
