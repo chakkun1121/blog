@@ -5,10 +5,6 @@ tags: ["nextjs", "react"]
 description: nextjs の app router (next13)でのリダイレクトの方法
 ---
 
-<!-- markdownlint-disable MD025 MD033 -->
-
-# nextjsでリダイレクトを行う方法
-
 ネット上であまりいい情報がなかったので自分なりにまとめます。
 
 ## 1. router.push

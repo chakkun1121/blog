@@ -19,12 +19,15 @@ export default async function PostPage(props: { params: { title: string } }) {
           投稿日:
           {new Date(data?.date || "")?.toLocaleDateString("ja-JP") || "不明"}
         </p>
-        <ReactMarkdown
-          rehypePlugins={[rehypeRaw, rehypeSanitize] as any}
-          remarkPlugins={[remarkGfm]}
-        >
-          {renderFile}
-        </ReactMarkdown>
+        <>
+          <h1>{data.title}</h1>
+          <ReactMarkdown
+            rehypePlugins={[rehypeRaw, rehypeSanitize] as any}
+            remarkPlugins={[remarkGfm]}
+          >
+            {renderFile}
+          </ReactMarkdown>
+        </>
       </BlogLayout>
     );
   } catch (e) {

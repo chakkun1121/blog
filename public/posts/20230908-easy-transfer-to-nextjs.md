@@ -4,10 +4,6 @@ date: 2023-09-08
 description: 生コード(jQueryを含む)のアプリをnextjsに移行する簡単な方法
 ---
 
-<!-- markdownlint-disable MD025 MD033 -->
-
-# nextjsへの移行の簡単なやり方
-
 ## 前提条件
 
 - html,css,jsで作成されたアプリケーションがあること(jQueryなどのライブラリーを使用している場合はそれらも含む。ただし、webpackなどを利用しており、そのままブラウザで表示できない場合は除く)
