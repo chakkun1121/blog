@@ -5,4 +5,5 @@ export interface postType {
   description: string;
   date: string;
   isShow?: boolean;
+  tags?: string[];
 }

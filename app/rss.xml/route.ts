@@ -1,9 +1,9 @@
 import RSS from "rss";
-import { getRecentArticles } from "../lib/getRecentArticles";
+import { getAllArticleData } from "../lib/getAllArticleData";
 import { siteDescription, siteTitle, siteUrl } from "../layout";
 
 export async function GET() {
-  const articles = await getRecentArticles();
+  const articles = await getAllArticleData();
   const feed = new RSS({
     title: siteTitle,
     description: siteDescription,

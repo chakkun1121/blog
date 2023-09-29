@@ -1,13 +1,13 @@
 import { PostCard } from "./postCard";
 import { postType } from "../../@types/postType";
-import { getRecentArticles } from "../lib/getRecentArticles";
+import { getAllArticleData } from "../lib/getAllArticleData";
 
 export default async function RecentArticles({
   maxPosts,
 }: {
   maxPosts?: number;
 }): Promise<JSX.Element> {
-  const posts: postType[] = await getRecentArticles();
+  const posts: postType[] = await getAllArticleData();
   return (
     <>
       {posts.map((post, index) => {
