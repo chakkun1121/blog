@@ -4,7 +4,7 @@ import Header from "./_components/header";
 import Footer from "./_components/footer";
 
 export const siteTitle = "chakkun1121's blog | chakkun1121";
-const siteDescription =
+export const siteDescription =
   "和訳表示サイトなど個人開発を行っているchakkun1121のブログです。";
 export const isDevMode = process.env.NODE_ENV === "development";
 export const siteUrl = isDevMode

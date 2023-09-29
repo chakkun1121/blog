@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/marked": "^5.0.2",
+    "@types/rss": "^0.0.30",
     "gray-matter": "^4.0.3",
     "marked": "^9.0.3",
     "next": "13.5.3",
@@ -19,6 +20,7 @@
     "rehype-raw": "^7.0.0",
     "rehype-sanitize": "^6.0.0",
     "remark-gfm": "^4.0.0",
+    "rss": "^1.2.2",
     "typescript": "^5.2.2"
   },
   "devDependencies": {
