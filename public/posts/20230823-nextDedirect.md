@@ -1,8 +1,9 @@
 ---
 title: nextjsでリダイレクトを行う方法
 date: 2023-08-23
-tags: -nextjs
-  -react
+tags:
+  - nextjs
+  - react
 description: nextjs の app router (next13)でのリダイレクトの方法
 ---
 

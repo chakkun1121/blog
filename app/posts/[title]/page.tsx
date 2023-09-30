@@ -23,7 +23,15 @@ export default async function PostPage(props: { params: { title: string } }) {
           </p>
           <div>
             タグ:
-            {data?.tags?.map((tag) => <Tag key={tag}>{tag}</Tag>)}
+            {data?.tags?.map((tag) => (
+              <Link
+                href={"../tag/" + tag}
+                className="m-2 rounded bg-black p-2 text-white no-underline visited:text-white"
+                key={tag}
+              >
+                {tag}
+              </Link>
+            ))}
           </div>
         </div>
         <>
@@ -40,16 +48,6 @@ export default async function PostPage(props: { params: { title: string } }) {
   } catch (e) {
     notFound();
   }
-}
-export function Tag(props: { children: string }) {
-  return (
-    <Link
-      href={"../tag/" + props.children}
-      className="m-2 rounded bg-black p-2 text-white no-underline visited:text-white"
-    >
-      {props.children}
-    </Link>
-  );
 }
 export async function generateStaticParams() {
   const recentArticles = await getAllArticleData();
