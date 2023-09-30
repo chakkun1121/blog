@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { Posts } from "../../_components/posts";
-import { getAllArticleData } from "../../lib/getAllArticleData";
+import { getAllTags } from "../../lib/getAllTags";
 
 export default function Page({ params }: { params: { tagName: string } }) {
   return (
@@ -30,14 +30,4 @@ export async function generateStaticParams(): Promise<{ tagName: string }[]> {
   return tags.map((tag) => ({
     tagName: tag,
   }));
-}
-export async function getAllTags(): Promise<string[]> {
-  return Array.from(
-    new Set(
-      (await getAllArticleData())
-        .map((post) => post?.tags)
-        .flat()
-        .filter((tag) => tag),
-    ),
-  ).sort();
 }

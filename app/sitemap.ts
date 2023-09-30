@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { siteUrl } from "./layout";
 import { getAllArticleData } from "./lib/getAllArticleData";
-import { getAllTags } from "./tag/[tagName]/page";
+import { getAllTags } from "./lib/getAllTags";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const recentArticles = await getAllArticleData();
