@@ -9,6 +9,7 @@ import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import Link from "next/link";
 import { getAllArticleData } from "../../lib/getAllArticleData";
+import { ArticleFooter } from "./ArticleFooter";
 export default async function PostPage(props: { params: { title: string } }) {
   try {
     const data = await getArticleData(props.params.title);
@@ -43,6 +44,7 @@ export default async function PostPage(props: { params: { title: string } }) {
             {renderFile}
           </ReactMarkdown>
         </>
+        <ArticleFooter />
       </BlogLayout>
     );
   } catch (e) {
