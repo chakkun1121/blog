@@ -17,7 +17,7 @@ export async function getAllArticleData(): Promise<postType[]> {
       );
       const { data } = matter(content);
       if (typeof data !== "object") throw new Error("data is not object");
-      data.link = `/posts/${file}`.replace(".md", "");
+      data.link = `/${file}`.replace(".md", "");
       return data as postType;
     }),
   );

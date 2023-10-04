@@ -1,14 +1,14 @@
 import { notFound } from "next/navigation";
 import React from "react";
-import { siteTitle } from "../../layout";
+import { siteTitle } from "../layout";
 import { BlogLayout } from "./BlogLayout";
-import { getArticleData } from "../../lib/getArticleData";
+import { getArticleData } from "../lib/getArticleData";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import Link from "next/link";
-import { getAllArticleData } from "../../lib/getAllArticleData";
+import { getAllArticleData } from "../lib/getAllArticleData";
 import { ArticleFooter } from "./ArticleFooter";
 export default async function PostPage(props: { params: { title: string } }) {
   try {
@@ -54,13 +54,13 @@ export default async function PostPage(props: { params: { title: string } }) {
 export async function generateStaticParams() {
   const recentArticles = await getAllArticleData();
   return recentArticles.map((article) => ({
-    title: article.link.replace(/\/posts\//, ""),
+    title: article.link.replace(/\//g, ""),
   }));
 }
 export async function generateMetadata({ params }) {
   try {
     const data = await getArticleData(params.title);
-    const currentSiteUrl = `/posts/${params.title}`;
+    const currentSiteUrl = `/${params.title}`;
     return {
       title: data.title,
       description: data.description,

@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/marked": "^5.0.2",
+    "@types/marked": "^6.0.0",
     "@types/rss": "^0.0.30",
     "gray-matter": "^4.0.3",
     "marked": "^9.0.3",
@@ -25,11 +25,11 @@
   },
   "devDependencies": {
     "@types/node": "^20.8.2",
-    "@types/react": "18.2.24",
+    "@types/react": "18.2.25",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
     "prettier": "^3.0.3",
-    "prettier-plugin-tailwindcss": "^0.5.4",
+    "prettier-plugin-tailwindcss": "^0.5.5",
     "tailwindcss": "^3.3.3"
   }
 }
