@@ -7,7 +7,7 @@ export async function GET() {
   const feed = new RSS({
     title: siteTitle,
     description: siteDescription,
-    site_url: siteUrl,
+    site_url: siteUrl + "/",
     feed_url: siteUrl + "/rss.xml",
   });
   articles.forEach((article) => {
