@@ -13,7 +13,7 @@ export async function ArticleFooter() {
             return (
               <li>
                 <Link
-                  href={"../" + article.link}
+                  href={article.link}
                   className="m-2 inline-block text-L"
                   key={article.link}
                   target="_blank"
