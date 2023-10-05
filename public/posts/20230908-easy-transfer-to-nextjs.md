@@ -2,6 +2,9 @@
 title: nextjsへの移行の簡単なやり方
 date: 2023-09-08
 description: 生コード(jQueryを含む)のアプリをnextjsに移行する簡単な方法
+tags:
+  - next.js
+  - nextjs
 ---
 
 ## 前提条件
