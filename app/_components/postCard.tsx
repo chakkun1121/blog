@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { postType } from "../../@types/postType";
+import { siteUrl } from "../layout";
 
 export function PostCard({ post }: { post: postType }) {
   return (
@@ -10,7 +11,7 @@ export function PostCard({ post }: { post: postType }) {
           className="text-black no-underline visited:text-black"
         >
           <img
-            src={post?.image || "./img/no-image.webp"}
+            src={post?.image || siteUrl + "/img/no-image.webp"}
             alt={post?.title + "のサムネイル"}
             className="h-60 w-full rounded object-cover"
           />
