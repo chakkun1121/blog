@@ -50,7 +50,7 @@ export default async function PostPage(props: { params: { title: string } }) {
               タグ:
               {data?.tags?.map((tag) => (
                 <Link
-                  href={basePath + "/tag/" + tag}
+                  href={"./tag/" + tag}
                   className="m-2 rounded bg-black p-2 text-white no-underline visited:text-white"
                   key={tag}
                 >
