@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import React from "react";
-import { siteTitle, siteUrl } from "../layout";
+import { siteTitle } from "../layout";
 import { BlogLayout } from "./BlogLayout";
 import { getArticleData } from "../lib/getArticleData";
 import ReactMarkdown from "react-markdown";
@@ -11,7 +11,11 @@ import Link from "next/link";
 import { getAllArticleData } from "../lib/getAllArticleData";
 import { ArticleFooter } from "./ArticleFooter";
 import { Article, WithContext } from "schema-dts";
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
+
 export default async function PostPage(props: { params: { title: string } }) {
+  const basePath = (publicRuntimeConfig && publicRuntimeConfig.basePath) || "";
   try {
     const data = await getArticleData(props.params.title);
     // mdのheader部分を除去したファイルを準備する
@@ -22,7 +26,7 @@ export default async function PostPage(props: { params: { title: string } }) {
       headline: data.title,
       description: data.description,
       datePublished: data.date,
-      image: data.image || siteUrl + "/img/no-image.webp",
+      image: data.image || basePath + "/img/no-image.webp",
       author: {
         "@type": "Person",
         name: "chakkun1121",
@@ -46,7 +50,7 @@ export default async function PostPage(props: { params: { title: string } }) {
               タグ:
               {data?.tags?.map((tag) => (
                 <Link
-                  href={"./tag/" + tag}
+                  href={basePath + "/tag/" + tag}
                   className="m-2 rounded bg-black p-2 text-white no-underline visited:text-white"
                   key={tag}
                 >
@@ -93,7 +97,6 @@ export async function generateMetadata({ params }) {
         type: "website",
         locale: "ja_JP",
         url: currentSiteUrl,
-        siteName: siteTitle,
         description: data.description,
       },
     };

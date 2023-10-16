@@ -1,9 +1,16 @@
-const { env } = require("process");
+/* 公開時のサブディレクトリ */
+const SUB_DIRECTORY = "/blog";
 
+/* 本番環境と開発環境の分岐用のフラグ */
+const isProd = process.env.NODE_ENV == "production";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
-  basePath: process.env.NODE_ENV === "development" ? "" : "/blog",
+  basePath: isProd ? SUB_DIRECTORY : "",
+  assetPrefix: isProd ? SUB_DIRECTORY : "",
+  publicRuntimeConfig: {
+    basePath: isProd ? SUB_DIRECTORY : "",
+  },
 };
 
 module.exports = nextConfig;
