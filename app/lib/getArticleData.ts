@@ -6,13 +6,14 @@ import path from "path";
 export async function getArticleData(
   title: string,
 ): Promise<getArticleDataProps> {
+  if (!title.endsWith(".md")) title += ".md";
   const file = await fsPromises.readFile(
-    path.join(process.cwd(), "public", "posts", `${title}.md`),
+    path.join(process.cwd(), "public", "posts", title),
     "utf-8",
   );
   const { data } = matter(file) as unknown as { data: postType };
   return { ...data, file };
 }
 interface getArticleDataProps extends postType {
-  file: string;
+  file: string; // 記事のファイルの中身
 }

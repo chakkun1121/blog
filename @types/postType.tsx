@@ -3,7 +3,7 @@ export interface postType {
   /**
    * 絶対パスか/posts/img/{link}/からの相対パス
    */
-  image: string;
+  image?: string;
   /**
    * 記事が入っているフォルダの名前
    */

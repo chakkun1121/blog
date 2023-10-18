@@ -1,7 +1,7 @@
 import fsPromises from "fs/promises";
 import path from "path";
-import matter from "gray-matter";
 import { postType } from "../../@types/postType";
+import { getArticleData } from "./getArticleData";
 export async function getAllArticleData(): Promise<postType[]> {
   const currentDir = process.cwd();
   // 記事は /posts にある
@@ -11,14 +11,10 @@ export async function getAllArticleData(): Promise<postType[]> {
   ).filter((file) => file.endsWith(".md"));
   const posts: postType[] = await Promise.all(
     files.map(async (file) => {
-      const content = await fsPromises.readFile(
-        path.join(currentDir, "public", "posts", file),
-        "utf-8",
-      );
-      const { data } = matter(content);
-      if (typeof data !== "object") throw new Error("data is not object");
-      data.link = `/${file}`.replace(".md", "");
-      return data as postType;
+      return {
+        ...(await getArticleData(file)),
+        link: "/" + file.split(".")[0],
+      };
     }),
   );
   posts.sort((a, b) => {
