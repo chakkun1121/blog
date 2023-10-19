@@ -13,6 +13,7 @@ export default async function RecentArticles({
   return (
     <>
       {posts.map((post, index) => {
+        // if (!post) return;
         if (maxPosts && index >= maxPosts) return;
         if (post.isShow === false) return;
         if (tagName && !post.tags?.includes(tagName)) return;

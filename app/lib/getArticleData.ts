@@ -12,6 +12,8 @@ export async function getArticleData(
     "utf-8",
   );
   const { data } = matter(file) as unknown as { data: postType };
+  // data.date(日本標準時基準)が未来の時間だったらundefinedを返す
+  if (data.date && new Date(data.date) > new Date()) return undefined;
   return { ...data, file };
 }
 interface getArticleDataProps extends postType {

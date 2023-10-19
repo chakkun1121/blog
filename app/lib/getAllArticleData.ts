@@ -11,16 +11,19 @@ export async function getAllArticleData(): Promise<postType[]> {
   ).filter((file) => file.endsWith(".md"));
   const posts: postType[] = await Promise.all(
     files.map(async (file) => {
+      const articleData = await getArticleData(file);
+      if (articleData === undefined) return undefined;
       return {
         ...(await getArticleData(file)),
         link: "/" + file.split(".")[0],
       };
     }),
   );
-  posts.sort((a, b) => {
-    if (a.date < b.date) return 1;
-    else if (a.date > b.date) return -1;
-    else return 0;
-  });
-  return posts;
+  return posts
+    .filter((post) => post !== undefined)
+    .sort((a, b) => {
+      if (a.date < b.date) return 1;
+      else if (a.date > b.date) return -1;
+      else return 0;
+    });
 }
