@@ -35,6 +35,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  themeColor:"#fef08a"
 };
 export default function Layout({ children }) {
   return (
