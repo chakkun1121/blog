@@ -12,8 +12,8 @@
     "@types/marked": "^6.0.0",
     "@types/rss": "^0.0.31",
     "gray-matter": "^4.0.3",
-    "marked": "^9.1.2",
-    "next": "13.5.5",
+    "marked": "^9.1.3",
+    "next": "14.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-markdown": "^9.0.0",
@@ -26,12 +26,12 @@
   },
   "devDependencies": {
     "@types/gtag.js": "^0.0.17",
-    "@types/node": "^20.8.7",
-    "@types/react": "18.2.29",
+    "@types/node": "^20.8.9",
+    "@types/react": "18.2.33",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.6",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.5"
   }
 }

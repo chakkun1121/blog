@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import "./global.css";
 import Header from "./_components/header";
 import Footer from "./_components/footer";
@@ -35,7 +35,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  themeColor:"#fef08a"
+};
+export const viewport: Viewport = {
+  themeColor: "#fef08a",
 };
 export default function Layout({ children }) {
   return (
