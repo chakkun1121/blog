@@ -86,7 +86,7 @@ export default function Image({params}:{params:{id:string}}){
 
 ここではテストのためidをそのまま出しています。これで 1/opengraph-image にアクセスすると下のような画像が表示されます。
 
-![結果](./img/20231004/opengraph-image-example.png)
+![結果](./posts/20231004/opengraph-image-example.png)
 
 ## SSGでの使い方
 
@@ -118,7 +118,7 @@ export function generateStaticParams() {
 
 SSG対応をしようとすると以下のようなエラーを吐きます
 
-![エラー](./img/20231004/error.png)
+![エラー](./posts/20231004/error.png)
 
 これを対処するために以下のようにgenerateStaticParamsを追加します。
 
@@ -132,10 +132,10 @@ export function generateStaticParams() {
 
 原因は[next.js側にある](https://github.com/vercel/next.js/issues/51147)ようです。そのため、対処法は今のことろありません。そのため最新版(v13.5.4)ではSSGに対応できないので諦めてこのファイルを削除する必要があります。
 
-~~~
+```
 2023-10-12追記
 現在の最新バージョン v13.5.5でも同様の事例が発生するようです。早く直してほしい
-~~~
+```
 
 ## 最後に
 

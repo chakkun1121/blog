@@ -2,7 +2,7 @@
 title: next.jsでgithub pagesのサブディレクトリにビルドする方法
 description: next.jsでgithub oagesのサブディレクトリにビルドする方法を解説します。
 date: 2023-10-19
-tags: 
+tags:
   - next.js
   - nextjs
   - github-pages
@@ -39,4 +39,4 @@ module.exports = nextConfig;
 
 ## 参考資料
 
-* [Next.jsで静的サイトをサブディレクトリにデプロイしたいときの設定 #Next.js - Qiita](https://qiita.com/hiropy0123/items/02ab91f69dbfa4e2797f)
+- [Next.jsで静的サイトをサブディレクトリにデプロイしたいときの設定 #Next.js - Qiita](https://qiita.com/hiropy0123/items/02ab91f69dbfa4e2797f)

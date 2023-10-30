@@ -6,9 +6,9 @@ import path from "path";
 export async function getArticleData(
   title: string,
 ): Promise<getArticleDataProps> {
-  if (!title.endsWith(".md")) title += ".md";
+  title = title.replace(/\.md$/, "");
   const file = await fsPromises.readFile(
-    path.join(process.cwd(), "public", "posts", title),
+    path.join(process.cwd(), "public", "posts", title, "index.md"),
     "utf-8",
   );
   const { data } = matter(file) as unknown as { data: postType };

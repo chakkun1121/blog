@@ -2,9 +2,9 @@
 title: Next.jsでGoogleアナリティクスを設定する方法
 description: Next.js(app router使用)でgoogleアナリティクスを設定する方法
 tags:
- - next.js
- - nextjs
- - google-analytics
+  - next.js
+  - nextjs
+  - google-analytics
 date: 2023-10-16
 ---
 
@@ -13,15 +13,18 @@ date: 2023-10-16
 - next.js 13.5 (app router使用)
 
 ## 設定方法
+
 ### 1.Googleアナリティクスの測定IDを入手する
 
 ストリートを開き、
+
 1. 管理(設定アイコンのやつ)
 2. データストリーム
 3. 使用するストリームの左にある >
 4. ストリートの詳細にある測定ID(G- から始まるやつ)をコピーする
 
 ### 2. 環境変数に計測IDを入れる
+
 .envに入れてもいいですが、デバック時に邪魔なので .env.production に入れることを推奨します。
 
 ```
@@ -29,6 +32,7 @@ NEXT_PUBLIC_GA_ID= "G-XXXXXXXXXX" //上で取得した測定IDを入れてくだ
 ```
 
 ### 3. gtag.tsの作成
+
 gtag.tsを作成します。これはsrcディレクトリを使用していなければroot、使用していればsrcディレクトリ内に作成します。
 
 ```ts
@@ -42,7 +46,9 @@ export const pageview = (path: string) => {
   });
 };
 ```
+
 これでは型についての警告が出るので型を定義します。
+
 ```bach
 # npmの場合
 npm add -D @types/gtag.js
@@ -53,36 +59,38 @@ pnpm add -D @types/gtag.js
 ```
 
 ### 4.Google Analytics Client Componentを作成する
+
 Google Analyticsのコードはクライアントサイトで使用する必要があるため、`"use client"`を指定する必要があります。
 components/GoogleAnalytics.tsx
+
 ```tsx
-'use client'
+"use client";
 
-import { usePathname, useSearchParams } from 'next/navigation'
-import Script from 'next/script'
-import { useEffect } from 'react'
+import { usePathname, useSearchParams } from "next/navigation";
+import Script from "next/script";
+import { useEffect } from "react";
 
-import { existsGaId, GA_MEASUREMENT_ID, pageview } from '../lib/gtag'
+import { existsGaId, GA_MEASUREMENT_ID, pageview } from "../lib/gtag";
 
 const GoogleAnalytics = () => {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (!existsGaId) {
-      return
+      return;
     }
-    const url = pathname + searchParams.toString()
-    pageview(url)
-  }, [pathname, searchParams])
+    const url = pathname + searchParams.toString();
+    pageview(url);
+  }, [pathname, searchParams]);
 
   return (
     <>
       <Script
-        strategy='lazyOnload'
+        strategy="lazyOnload"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
       />
-      <Script id='gtag-init' strategy='afterInteractive'>
+      <Script id="gtag-init" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
@@ -93,30 +101,37 @@ const GoogleAnalytics = () => {
         `}
       </Script>
     </>
-  )
-}
+  );
+};
 
-export default GoogleAnalytics
+export default GoogleAnalytics;
 ```
+
 ### 5. layout.tsxから呼び出す
 
 ```tsx
-import GoogleAnalytics from '@/components/GoogleAnalytics'
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 // 省略...
 
-export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}): JSX.Element {
   return (
-    <html lang='jp'>
+    <html lang="jp">
       <GoogleAnalytics />
       <body>{children}</body>
     </html>
-  )
+  );
 }
 ```
 
 ## 最後に
+
 このようにすることでNext.js製のアプリにgoogleアナリティクスを投入できます。
 
 ## 参考資料
-* [【Next.js 13】環境ファイル別で Google Analytics を設定する](https://zenn.dev/kazuki23/articles/4cc0cf35a20ac0) (環境ごとに分ける必要がなかったのでそのまま .env.production に書きました。)
+
+- [【Next.js 13】環境ファイル別で Google Analytics を設定する](https://zenn.dev/kazuki23/articles/4cc0cf35a20ac0) (環境ごとに分ける必要がなかったのでそのまま .env.production に書きました。)

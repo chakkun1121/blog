@@ -5,10 +5,10 @@ import { getArticleData } from "./getArticleData";
 export async function getAllArticleData(): Promise<postType[]> {
   const currentDir = process.cwd();
   // 記事は /posts にある
-  // /posts/{fileName}.md という形式である
+  // /posts/{fileName}/index.md という形式である
   const files = (
     await fsPromises.readdir(path.join(currentDir, "public", "posts"))
-  ).filter((file) => file.endsWith(".md"));
+  ).filter((file) => !file.endsWith(".md"));
   const posts: postType[] = await Promise.all(
     files.map(async (file) => {
       const articleData = await getArticleData(file);
