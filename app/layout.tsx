@@ -35,6 +35,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  robots: {
+    follow: true,
+    index: true,
+  },
 };
 export const viewport: Viewport = {
   themeColor: "#fef08a",
