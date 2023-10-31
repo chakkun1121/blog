@@ -5,6 +5,7 @@ tags:
   - view-english
   - chakkun1121's-app
 date: 2023-10-31
+image: https://chakkun1121.github.io/view-english/img/view-english.webp
 ---
 
 [和訳表示サイト](https://chakkun1121.github.io/view-english/app)の変更について説明します。
