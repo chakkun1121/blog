@@ -14,7 +14,7 @@ export function PostCard({ post }: { post: postType }) {
           className={"text-black no-underline visited:text-black rounded bg-orange-100 p-2 gap-y-2 "+styles.link}
         >
           <img
-            src={basePath + "/img/no-image.webp"}
+            src={post.image||basePath + "/img/no-image.webp"}
             alt={post?.title + "のサムネイル"}
             className="h-60 w-full rounded object-cover"
           />
