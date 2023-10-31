@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import React from "react";
-import { siteTitle } from "../layout";
 import { BlogLayout } from "./BlogLayout";
 import { getArticleData } from "../lib/getArticleData";
 import ReactMarkdown from "react-markdown";
@@ -13,6 +12,7 @@ import { ArticleFooter } from "./ArticleFooter";
 import { Article, WithContext } from "schema-dts";
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
+import { AiOutlineTags } from "react-icons/ai";
 
 export default async function PostPage(props: { params: { title: string } }) {
   const basePath = (publicRuntimeConfig && publicRuntimeConfig.basePath) || "";
@@ -46,18 +46,18 @@ export default async function PostPage(props: { params: { title: string } }) {
               {new Date(data?.date || "")?.toLocaleDateString("ja-JP") ||
                 "不明"}
             </p>
-            <div>
-              タグ:
+            <ul className="flex flex-wrap gap-4 py-4">
               {data?.tags?.map((tag) => (
-                <Link
-                  href={"./tag/" + tag}
-                  className="m-2 rounded bg-black p-2 text-white no-underline visited:text-white"
-                  key={tag}
-                >
-                  {tag}
-                </Link>
+                <li key={tag} className="list-none">
+                  <Link
+                    href={"./tag/" + tag}
+                    className="rounded bg-green-300 p-2 text-black no-underline visited:text-black"
+                  >
+                    {tag}
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
           <>
             <h1>{data.title}</h1>

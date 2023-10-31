@@ -11,7 +11,7 @@ export async function ArticleFooter() {
         {recentArticles
           .map((article) => {
             return (
-              <li>
+              <li key={article.title} className="list-none md:list-disc	">
                 <Link
                   href={article.link}
                   className="m-2 inline-block text-L"
