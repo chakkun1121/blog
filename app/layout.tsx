@@ -1,4 +1,4 @@
-import { Metadata, Viewport } from "next";
+import { Metadata } from "next";
 import "./global.css";
 import Header from "./_components/header";
 import Footer from "./_components/footer";
@@ -39,10 +39,9 @@ export const metadata: Metadata = {
     follow: true,
     index: true,
   },
-};
-export const viewport: Viewport = {
   themeColor: "#fef08a",
 };
+
 export default function Layout({ children }) {
   return (
     <html lang="ja">

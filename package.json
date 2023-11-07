@@ -12,7 +12,7 @@
     "@types/rss": "^0.0.31",
     "gray-matter": "^4.0.3",
     "marked": "^9.1.5",
-    "next": "14.0.1",
+    "next": "13.5.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.11.0",
