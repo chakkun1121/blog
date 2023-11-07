@@ -1,9 +1,10 @@
-import { Metadata } from "next";
 import "./global.css";
 import Header from "./_components/header";
 import Footer from "./_components/footer";
 import { env } from "process";
 import GoogleAnalytics from "./_components/GoogleAnalytics";
+import { Metadata, Viewport } from "next/types";
+import { Suspense } from "react";
 
 export const siteTitle = "chakkun1121's blog | chakkun1121";
 export const siteDescription =
@@ -39,13 +40,17 @@ export const metadata: Metadata = {
     follow: true,
     index: true,
   },
+};
+export const viewport: Viewport = {
   themeColor: "#fef08a",
 };
 
 export default function Layout({ children }) {
   return (
     <html lang="ja">
-      <GoogleAnalytics />
+      <Suspense fallback={<></>}>
+        <GoogleAnalytics />
+      </Suspense>
       <body className="flex min-h-screen flex-col">
         <Header />
         <div className="mb-36 mt-14 w-full flex-grow px-6">
