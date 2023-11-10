@@ -26,3 +26,9 @@ a,
 a:visited {
   @apply text-L text-sea-800 underline;
 }
+ul {
+  @apply ml-4;
+}
+li {
+  @apply list-inside list-disc;
+}
