@@ -130,6 +130,7 @@ export default function RootLayout({
 ```
 --- 
 2023/11/10追記
+
 next.js v14では上記の方法では、`Entire page deopted into client-side rendering`というエラーを吐き出し、勝手にnoindexタグが設定されます。(このブログはこれが原因で1週間ぐらい新規ページが検索に載りませんでした)そのため、以下のように`Suspense`で囲う必要があります。
 ```tsx
 <Suspense fallback={<></>}>
