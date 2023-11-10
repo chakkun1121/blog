@@ -86,7 +86,7 @@ export default function Image({params}:{params:{id:string}}){
 
 ここではテストのためidをそのまま出しています。これで 1/opengraph-image にアクセスすると下のような画像が表示されます。
 
-![結果](./posts/20231004/opengraph-image-example.png)
+![結果](./opengraph-image-example.png)
 
 ## SSGでの使い方
 
@@ -118,7 +118,7 @@ export function generateStaticParams() {
 
 SSG対応をしようとすると以下のようなエラーを吐きます
 
-![エラー](./posts/20231004/error.png)
+![エラー](./error.png)
 
 これを対処するために以下のようにgenerateStaticParamsを追加します。
 

@@ -2,17 +2,14 @@ import { notFound } from "next/navigation";
 import React from "react";
 import { BlogLayout } from "./BlogLayout";
 import { getArticleData } from "../lib/getArticleData";
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import rehypeSanitize from "rehype-sanitize";
-import remarkGfm from "remark-gfm";
 import Link from "next/link";
 import { getAllArticleData } from "../lib/getAllArticleData";
 import { ArticleFooter } from "./ArticleFooter";
 import { Article, WithContext } from "schema-dts";
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
-import { AiOutlineTags } from "react-icons/ai";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import path from "path";
 
 export default async function PostPage(props: { params: { title: string } }) {
   const basePath = (publicRuntimeConfig && publicRuntimeConfig.basePath) || "";
@@ -61,12 +58,27 @@ export default async function PostPage(props: { params: { title: string } }) {
           </div>
           <>
             <h1>{data.title}</h1>
-            <ReactMarkdown
-              rehypePlugins={[rehypeRaw, rehypeSanitize] as any}
-              remarkPlugins={[remarkGfm]}
-            >
-              {renderFile}
-            </ReactMarkdown>
+            <MDXRemote
+              source={renderFile}
+              components={{
+                a: (props) => <a target="_blank" {...props} />,
+                img: (p) => {
+                  const { src, ...rest } = p;
+                  return (
+                    <img
+                      src={
+                        src.startsWith("http")
+                          ? src
+                          : "./posts/" +
+                            props.params.title +
+                            src.replace(/^.\//g, "/")
+                      }
+                      {...rest}
+                    />
+                  );
+                },
+              }}
+            />
           </>
           <ArticleFooter />
         </BlogLayout>

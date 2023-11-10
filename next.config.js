@@ -11,6 +11,8 @@ const nextConfig = {
   publicRuntimeConfig: {
     basePath: isProd ? SUB_DIRECTORY : "",
   },
+  pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
 };
+const withMDX = require("@next/mdx")();
 
-module.exports = nextConfig;
+module.exports = withMDX(nextConfig);
