@@ -21,8 +21,6 @@ tags:
 
 (何故か埋め込みが拒否される。あと、なぜかiframeを入れるとエラーを吐く)
 
-<!-- <iframe src="https://github.com/chakkun1121/blog/blob/eae906353ef1c040e40bc360491468f69d4d2023/package.json#L11-L40"> -->
-
 [package.json](https://github.com/chakkun1121/blog/blob/eae906353ef1c040e40bc360491468f69d4d2023/package.json#L11-L40)
 
 今回はApp Routerを採用しました。やはりAppRouterのほうがわかりやすかったです。(てかPagesRouterをほぼ触ったことがない)
