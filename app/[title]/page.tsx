@@ -9,7 +9,6 @@ import { Article, WithContext } from "schema-dts";
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 import { MDXRemote } from "next-mdx-remote/rsc";
-import path from "path";
 
 export default async function PostPage(props: { params: { title: string } }) {
   const basePath = (publicRuntimeConfig && publicRuntimeConfig.basePath) || "";
@@ -77,6 +76,22 @@ export default async function PostPage(props: { params: { title: string } }) {
                     />
                   );
                 },
+                h1: ({ children }) => <h1 className="pl-0">{children}</h1>,
+                h2: ({ children }) => <h2 className="pl-1">{children}</h2>,
+                h3: ({ children }) => <h3 className="pl-2">{children}</h3>,
+                h4: ({ children }) => <h4 className="pl-3">{children}</h4>,
+                h5: ({ children }) => <h5 className="pl-4">{children}</h5>,
+                h6: ({ children }) => <h6 className="pl-5">{children}</h6>,
+                p: ({ children }) => <p className="pl-6">{children}</p>,
+                ul: ({ children }) => <ul className="ml-4">{children}</ul>,
+                li: ({ children }) => (
+                  <li className="list-inside list-disc">{children}</li>
+                ),
+                pre: ({ children }) => (
+                  <pre className="m-8 overflow-x-auto rounded-md border border-gray-300 bg-gray-100 p-2">
+                    {children}
+                  </pre>
+                ),
               }}
             />
           </>
