@@ -9,6 +9,7 @@ import { Article, WithContext } from "schema-dts";
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 
 export default async function PostPage(props: { params: { title: string } }) {
   const basePath = (publicRuntimeConfig && publicRuntimeConfig.basePath) || "";
@@ -92,6 +93,17 @@ export default async function PostPage(props: { params: { title: string } }) {
                     {children}
                   </pre>
                 ),
+                table: ({ children }) => (
+                  <table className="block overflow-x-scroll whitespace-nowrap pl-4 ">
+                    {children}
+                  </table>
+                ),
+              }}
+              options={{
+                mdxOptions: {
+                  remarkPlugins: [remarkGfm],
+                  // rehypePlugins: [require("rehype-slug")],
+                },
               }}
             />
           </>
