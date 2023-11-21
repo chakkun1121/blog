@@ -1,6 +1,6 @@
 import RSS from "rss";
 import { getAllArticleData } from "../lib/getAllArticleData";
-import { siteDescription, siteTitle, siteUrl } from "../layout";
+import { siteDescription, siteTitle, siteUrl } from "../meta";
 
 export async function GET() {
   const articles = await getAllArticleData();
