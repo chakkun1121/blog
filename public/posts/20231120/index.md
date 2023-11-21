@@ -7,8 +7,11 @@ tags:
   - sort
   - eslint
 ---
+
 ## 最初に
+
 以下のコードには問題があります。それはなにかわかりますか?
+
 ```js
 const numbers = [5, 200, 10];
 numbers.sort();
@@ -32,7 +35,6 @@ numbers.sort((a, b) => a - b);
 ## 対策
 
 この対策としてeslintの設定で@typescript-eslint/require-array-sort-compareを設定しましょう。
-
 
 ```json
 {

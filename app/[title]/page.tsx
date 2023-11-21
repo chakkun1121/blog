@@ -10,6 +10,7 @@ import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
+import CodeBlock from "../_components/codeblock";
 
 export default async function PostPage(props: { params: { title: string } }) {
   const basePath = (publicRuntimeConfig && publicRuntimeConfig.basePath) || "";
@@ -88,11 +89,7 @@ export default async function PostPage(props: { params: { title: string } }) {
                 li: ({ children }) => (
                   <li className="list-inside list-disc">{children}</li>
                 ),
-                pre: ({ children }) => (
-                  <pre className="m-8 overflow-x-auto rounded-md border border-gray-300 bg-gray-100 p-2">
-                    {children}
-                  </pre>
-                ),
+                pre: ({ children }) => <CodeBlock>{children}</CodeBlock>,
                 table: ({ children }) => (
                   <table className="block overflow-x-scroll whitespace-nowrap pl-4 ">
                     {children}
