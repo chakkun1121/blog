@@ -23,6 +23,10 @@ export function generateMetadata({
     alternates: {
       canonical: "/tag/" + params.tagName,
     },
+    robots: {
+      index: false,
+      follow: true,
+    },
   };
 }
 export async function generateStaticParams(): Promise<{ tagName: string }[]> {
