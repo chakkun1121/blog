@@ -16,6 +16,13 @@ export async function GET() {
       description: article.description,
       url: siteUrl + article.link,
       date: article.date,
+      custom_elements: [
+        {
+          tags: article.tags.map((tag) => ({
+            tag: [{ _attr: { name: tag } }],
+          })),
+        },
+      ],
     });
   });
 
