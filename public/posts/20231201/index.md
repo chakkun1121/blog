@@ -9,7 +9,7 @@ tags:
 ---
 ## アプリ本体
 
-<https://chakkun1121.github.io/block-key-inputs/>
+[これ](https://chakkun1121.github.io/block-key-inputs/)
 
 ## 使用技術
 
