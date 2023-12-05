@@ -6,7 +6,6 @@ import { Metadata, Viewport } from "next/types";
 import { Suspense } from "react";
 import { siteUrl, siteTitle, siteDescription } from "./meta";
 
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -29,6 +28,9 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
+    types: {
+      "application/rss+xml": "rss.xml",
+    },
   },
   robots: {
     follow: true,
@@ -45,15 +47,9 @@ export default function Layout({ children }) {
       <Suspense fallback={<></>}>
         <GoogleAnalytics />
       </Suspense>
-      <body className="flex min-h-screen flex-col">
+      <body className="flex min-h-screen flex-col items-center gap-4">
         <Header />
-        <div className="mb-36 mt-14 w-full flex-grow px-6">
-          <div className="max-w-container mx-auto grid grid-cols-1 gap-8 sm:grid-cols-12">
-            <main className="gap-22 col-span-full flex flex-col">
-              {children}
-            </main>
-          </div>
-        </div>
+        <main className="flex-1 px-4">{children}</main>
         <Footer />
       </body>
     </html>
