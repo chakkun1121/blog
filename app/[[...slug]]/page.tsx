@@ -1,13 +1,13 @@
-import Pagination from "./_components/pagination";
-import { Posts } from "./_components/posts";
-import { getAllArticleData } from "./lib/getAllArticleData";
+import Pagination from "../_components/pagination";
+import { Posts } from "../_components/posts";
+import { getAllArticleData } from "../lib/getAllArticleData";
 
 export default async function Page({
-  searchParams: { page = "1" },
+  params: { slug },
 }: {
-  searchParams: { page?: string };
+  params: { slug: string[] };
 }) {
-  const pageNum = parseInt(page);
+  const pageNum = parseInt(slug?.[1] || "1");
   // 1ページあたり最大20件とする
   const start = pageNum * 20 - 20;
   const end = pageNum * 20 - 1;
@@ -28,8 +28,13 @@ export default async function Page({
   );
 }
 
-export async function generateStaticPaths(): Promise<{ page: string }[]> {
+export async function generateStaticParams() {
   const posts = await getAllArticleData();
   const maxPage = Math.ceil(posts.length / 20);
-  return [...Array(maxPage)].map((_, i) => ({ page: (i + 1).toString() }));
+  return [
+    { slug: [] },
+    ...[...Array(maxPage)].map((_, i) => ({
+      slug: ["page", (i + 1).toString()],
+    })),
+  ];
 }

@@ -13,7 +13,7 @@ export default function Pagination({
   return (
     <div className="flex justify-center p-2">
       <LinkButton
-        href={`/?page=${currentPage - 1}`}
+        href={`/page/${currentPage - 1}`}
         isCurrent={false}
         disabled={currentPage === 1}
         className="rounded-l"
@@ -25,7 +25,7 @@ export default function Pagination({
         return (
           <LinkButton
             key={page}
-            href={`/?page=${page}`}
+            href={`/page/${page}`}
             isCurrent={page === currentPage}
             disabled={false}
           >
@@ -34,7 +34,7 @@ export default function Pagination({
         );
       })}
       <LinkButton
-        href={`/?page=${currentPage + 1}`}
+        href={`/page/${currentPage + 1}`}
         isCurrent={false}
         disabled={currentPage === finallyPage}
         className="rounded-r"
