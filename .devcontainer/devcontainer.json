@@ -1,0 +1,12 @@
+// See https://containers.dev/implementors/json_reference/ for configuration reference
+{
+	"name": "Nextjs with pnpm",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"remoteUser": "node",
+	"features": {
+		"ghcr.io/devcontainers-contrib/features/pnpm:2": {}
+	},
+	"postCreateCommand": "pnpm install"
+}
