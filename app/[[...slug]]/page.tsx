@@ -1,6 +1,7 @@
 import Pagination from "../_components/pagination";
 import { Posts } from "../_components/posts";
 import { getAllArticleData } from "../lib/getAllArticleData";
+import { HeaderLink } from "../_components/HeaderLink";
 
 export default async function Page({
   params: { slug },
@@ -14,6 +15,9 @@ export default async function Page({
   const articleNumber = (await getAllArticleData()).length;
   return (
     <>
+      <section>
+        <HeaderLink />
+      </section>
       <section>
         <Posts start={start} end={end} />
       </section>

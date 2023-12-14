@@ -1,16 +1,13 @@
 import { notFound } from "next/navigation";
 import React from "react";
-import { BlogLayout } from "./BlogLayout";
 import { getArticleData } from "../lib/getArticleData";
-import Link from "next/link";
 import { getAllArticleData } from "../lib/getAllArticleData";
 import { ArticleFooter } from "./ArticleFooter";
 import { Article, WithContext } from "schema-dts";
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
-import { MDXRemote } from "next-mdx-remote/rsc";
-import remarkGfm from "remark-gfm";
-import CodeBlock from "../_components/codeblock";
+import { BlogContent } from "./BlogContent";
+import { BlogShareButton } from "./BlogShareButton";
 
 export default async function PostPage(props: { params: { title: string } }) {
   const basePath = (publicRuntimeConfig && publicRuntimeConfig.basePath) || "";
@@ -32,81 +29,19 @@ export default async function PostPage(props: { params: { title: string } }) {
       },
     };
     return (
-      <div className="max-w-6xl">
+      <>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <BlogLayout>
-          <div>
-            <p>
-              投稿日:
-              {new Date(data?.date || "")?.toLocaleDateString("ja-JP") ||
-                "不明"}
-            </p>
-            <ul className="flex flex-wrap gap-4 py-4">
-              {data?.tags?.map((tag) => (
-                <li key={tag} className="list-none">
-                  <Link
-                    href={"./tag/" + tag}
-                    className="rounded bg-green-300 p-2 text-black no-underline visited:text-black"
-                  >
-                    {tag}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+        <div className="flex w-full flex-col-reverse justify-center gap-4 md:flex-row">
+          <BlogShareButton url={basePath + props.params.title} />
+          <div className="flex w-full max-w-6xl flex-col gap-4">
+            <BlogContent data={data} renderFile={renderFile} props={props} />
+            <ArticleFooter />
           </div>
-          <>
-            <h1>{data.title}</h1>
-            <MDXRemote
-              source={renderFile}
-              components={{
-                a: (props) => <a target="_blank" {...props} />,
-                img: (p) => {
-                  const { src, ...rest } = p;
-                  return (
-                    <img
-                      src={
-                        src.startsWith("http")
-                          ? src
-                          : "./posts/" +
-                            props.params.title +
-                            src.replace(/^.\//g, "/")
-                      }
-                      {...rest}
-                    />
-                  );
-                },
-                h1: ({ children }) => <h1 className="pl-0">{children}</h1>,
-                h2: ({ children }) => <h2 className="pl-1">{children}</h2>,
-                h3: ({ children }) => <h3 className="pl-2">{children}</h3>,
-                h4: ({ children }) => <h4 className="pl-3">{children}</h4>,
-                h5: ({ children }) => <h5 className="pl-4">{children}</h5>,
-                h6: ({ children }) => <h6 className="pl-5">{children}</h6>,
-                p: ({ children }) => <p className="pl-6">{children}</p>,
-                ul: ({ children }) => <ul className="ml-4">{children}</ul>,
-                li: ({ children }) => (
-                  <li className="list-inside list-disc">{children}</li>
-                ),
-                pre: ({ children }) => <CodeBlock>{children}</CodeBlock>,
-                table: ({ children }) => (
-                  <table className="block overflow-x-scroll whitespace-nowrap pl-4 ">
-                    {children}
-                  </table>
-                ),
-              }}
-              options={{
-                mdxOptions: {
-                  remarkPlugins: [remarkGfm],
-                  // rehypePlugins: [require("rehype-slug")],
-                },
-              }}
-            />
-          </>
-          <ArticleFooter />
-        </BlogLayout>
-      </div>
+        </div>
+      </>
     );
   } catch (e) {
     notFound();

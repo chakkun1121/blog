@@ -16,6 +16,6 @@ export async function getArticleData(
   if (data.date && new Date(data.date) > new Date()) return undefined;
   return { ...data, file };
 }
-interface getArticleDataProps extends postType {
+export interface getArticleDataProps extends postType {
   file: string; // 記事のファイルの中身
 }

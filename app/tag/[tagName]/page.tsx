@@ -1,10 +1,14 @@
 import { Metadata } from "next";
 import { Posts } from "../../_components/posts";
 import { getAllTags } from "../../lib/getAllTags";
+import { HeaderLink } from "../../_components/HeaderLink";
 
 export default function Page({ params }: { params: { tagName: string } }) {
   return (
     <>
+      <section>
+        <HeaderLink tagName={decodeURI(params.tagName)} />
+      </section>
       <section>
         <Posts tagName={decodeURI(params.tagName)} />
       </section>
