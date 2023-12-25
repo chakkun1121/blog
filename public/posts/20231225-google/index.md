@@ -1,6 +1,6 @@
 ---
 title: next.jsでGoogleDriveAPIを操作
-description: next.jsでGoogleDriveAPIを操作する方法を解説します。
+description: next.jsでgoogle drive apiを操作する方法を解説します。
 tags: 
   - nextjs
   - next.js
