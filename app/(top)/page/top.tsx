@@ -3,7 +3,7 @@ import Pagination from "../../_components/pagination";
 import { Posts } from "../../_components/posts";
 import { getAllArticleData } from "../../lib/getAllArticleData";
 
-export default async function topPage(page?: string) {
+export default async function topPage(page?: string, category?: string) {
   const pageNum = parseInt(page || "1");
   // 1ページあたり最大20件とする
   const start = pageNum * 20 - 20;
@@ -12,7 +12,7 @@ export default async function topPage(page?: string) {
   return (
     <>
       <section>
-        <HeaderLink />
+        <HeaderLink category={category} />
       </section>
       <section>
         <Posts start={start} end={end} />

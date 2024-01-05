@@ -1,18 +1,18 @@
 import React from "react";
-import { getArticleDataProps } from "../lib/getArticleData";
+import { getArticleDataProps } from "../../lib/getArticleData";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
-import CodeBlock from "../_components/codeblock";
+import CodeBlock from "../../_components/codeblock";
 
 export function BlogContent({
   data,
   renderFile,
-  props,
+  path,
 }: {
   data: getArticleDataProps;
   renderFile: string;
-  props?: any;
+  path: string;
 }) {
   return (
     <article className="w-full rounded bg-gray-100 p-4">
@@ -46,9 +46,7 @@ export function BlogContent({
                 src={
                   src.startsWith("http")
                     ? src
-                    : "./posts/" +
-                      props.params.title +
-                      src.replace(/^.\//g, "/")
+                    : "./posts/" + path + src.replace(/^.\//g, "/")
                 }
                 {...rest}
               />

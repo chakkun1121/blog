@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import React from "react";
-import { getArticleData } from "../lib/getArticleData";
-import { getAllArticleData } from "../lib/getAllArticleData";
+import { getArticleData } from "../../lib/getArticleData";
+import { getAllArticleData } from "../../lib/getAllArticleData";
 import { ArticleFooter } from "./ArticleFooter";
 import { Article, WithContext } from "schema-dts";
 import getConfig from "next/config";
@@ -9,10 +9,17 @@ const { publicRuntimeConfig } = getConfig();
 import { BlogContent } from "./BlogContent";
 import { BlogShareButton } from "./BlogShareButton";
 
-export default async function PostPage(props: { params: { title: string } }) {
+export default async function PostPage({
+  params: { path },
+}: {
+  params: { path: string[] };
+}) {
   const basePath = (publicRuntimeConfig && publicRuntimeConfig.basePath) || "";
   try {
-    const data = await getArticleData(props.params.title);
+    const data = await getArticleData({
+      category: path[path.length - 2],
+      articleID: path[path.length - 1],
+    });
     // mdのheader部分を除去したファイルを準備する
     const renderFile: string = data.file.replace(/^---[\s\S]*?---/, "");
     const jsonLd: WithContext<Article> = {
@@ -35,9 +42,13 @@ export default async function PostPage(props: { params: { title: string } }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <div className="flex w-full flex-col-reverse justify-center gap-4 md:flex-row">
-          <BlogShareButton url={basePath + props.params.title} />
+          <BlogShareButton url={basePath + path.join("/")} />
           <div className="flex w-full max-w-6xl flex-col gap-4">
-            <BlogContent data={data} renderFile={renderFile} props={props} />
+            <BlogContent
+              data={data}
+              renderFile={renderFile}
+              path={path.join("/")}
+            />
             <ArticleFooter />
           </div>
         </div>
@@ -47,16 +58,16 @@ export default async function PostPage(props: { params: { title: string } }) {
     notFound();
   }
 }
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{ path: string[] }[]> {
   const recentArticles = await getAllArticleData();
   return recentArticles.map((article) => ({
-    title: article.link.replace(/\//g, ""),
+    path: [article.link.replace(/\//g, "")],
   }));
 }
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params: { path } }) {
   try {
-    const data = await getArticleData(params.title);
-    const currentSiteUrl = `/${params.title}`;
+    const data = await getArticleData(path.join("/"));
+    const currentSiteUrl = `/${path.join("/")}`;
     return {
       title: data.title,
       description: data.description,

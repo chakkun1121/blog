@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { getAllArticleData } from "../lib/getAllArticleData";
+import { getAllArticleData } from "../../lib/getAllArticleData";
 
 export async function ArticleFooter() {
   const recentArticles = await getAllArticleData();
