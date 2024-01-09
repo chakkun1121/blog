@@ -8,6 +8,9 @@ import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 import { BlogContent } from "./BlogContent";
 import { BlogShareButton } from "./BlogShareButton";
+import { getAllCategoryData } from "../../lib/getAllCategoryData";
+import { postType } from "../../../@types/postType";
+import { getCategoryAllFileData } from "../../lib/getCategoryAllFileData";
 
 export default async function PostPage({
   params: { path },
@@ -59,14 +62,27 @@ export default async function PostPage({
   }
 }
 export async function generateStaticParams(): Promise<{ path: string[] }[]> {
-  const recentArticles = await getAllArticleData();
-  return recentArticles.map((article) => ({
-    path: [article.link.replace(/\//g, "")],
-  }));
+  const allArticles = [
+    ...(await getAllArticleData()),
+    ...(await getAllCategoryData().then((categories) => {
+      return Promise.all(
+        categories.map(async (category) => {
+          return await getCategoryAllFileData(category);
+        }),
+      );
+    })),
+  ].flat() as postType[];
+  const paths = allArticles.map((article) => {
+    return { path: article.link.split("/").filter((p) => p) };
+  });
+  return paths;
 }
 export async function generateMetadata({ params: { path } }) {
   try {
-    const data = await getArticleData(path.join("/"));
+    const data = await getArticleData({
+      category: path[path.length - 2],
+      articleID: path[path.length - 1],
+    });
     const currentSiteUrl = `/${path.join("/")}`;
     return {
       title: data.title,
@@ -83,6 +99,6 @@ export async function generateMetadata({ params: { path } }) {
       },
     };
   } catch (e) {
-    console.error(e);
+    throw new Error("記事が見つかりませんでした");
   }
 }

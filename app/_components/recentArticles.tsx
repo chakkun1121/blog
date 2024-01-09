@@ -4,14 +4,18 @@ import { getAllArticleData } from "../lib/getAllArticleData";
 
 export default async function RecentArticles({
   maxPosts,
-  tagName,start,end
+  tagName,
+  start,
+  end,
+  category,
 }: {
   maxPosts?: number;
-    tagName?: string;
-    start?: number;
-    end?: number;
+  tagName?: string;
+  start?: number;
+  end?: number;
+  category?: string;
 }): Promise<JSX.Element> {
-  const posts: postType[] = await getAllArticleData();
+  const posts: postType[] = await getAllArticleData(category);
   return (
     <>
       {posts.map((post, index) => {

@@ -6,7 +6,6 @@ export async function getCategoryAllFileData(
   categoryName: string,
 ): Promise<postType[]> {
   const currentDir = process.cwd();
-  const categoryDir = path.join(currentDir, "public", "posts", categoryName);
-  const categoryFiles = await getAllArticleData(categoryDir);
+  const categoryFiles = await getAllArticleData(categoryName);
   return categoryFiles;
 }
