@@ -12,7 +12,7 @@ date: 2024-01-16
 
 ## 例
 
-<iframe height="300" style="width: 100%;" scrolling="no" title="Demo" src="https://codepen.io/chakkun1121/embed/preview/XWOxYxG?default-tab=result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+<iframe height="300" className="w-full" scrolling="no" title="Demo" src="https://codepen.io/chakkun1121/embed/preview/XWOxYxG?default-tab=result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
   See the Pen <a href="https://codepen.io/chakkun1121/pen/XWOxYxG">
   EyeDropper API Demo</a> by chakkun1121 (<a href="https://codepen.io/chakkun1121">@chakkun1121</a>)
   on <a href="https://codepen.io">CodePen</a>.
