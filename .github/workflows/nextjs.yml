@@ -42,7 +42,7 @@ jobs:
         with:
           node-version: latest
 
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v2
         name: Install pnpm
         id: pnpm-install
         with:
@@ -65,7 +65,7 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v2
         with:
           static_site_generator: next
       - name: Build with Next.js
