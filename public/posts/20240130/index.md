@@ -18,7 +18,7 @@ tags:
 
 #### 1. `/etc/gdm3/custom.conf`を開く
 
-例では`nano`エディターを使っていますが`vin`などでも大丈夫です。
+例では`nano`エディターを使っていますが`vim`などでも大丈夫です。
 
 ```shell
 sudo nano /etc/gdm3/custom.conf
