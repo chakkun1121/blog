@@ -17,7 +17,7 @@ tags:
 - nextjs製のアプリを作成した(ローカルでは動く)
 - github pagesにデプロイしたい
 - パッケージマネージャはpnpmを利用している
-- しかし、pnpm-lock.yamlは除外している
+- しかし、pnpm-lock.yamlは(gitingoreで)除外している
 
 ## 本題
 
@@ -31,29 +31,28 @@ name: Next.js製のアプリをpnpmを使ってデプロイする
 on:
   push:
     branches: ["main"]
-  workflow_dispatch:
-
 permissions:
   contents: read
   pages: write
   id-token: write
-
+el in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
+  # Build job
   build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: latest
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
@@ -67,7 +66,7 @@ jobs:
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         name: Setup pnpm cache
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
@@ -78,16 +77,17 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: Setup Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v2
         with:
           static_site_generator: next
       - name: Build with Next.js
         run: pnpm next build
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
         with:
           path: ./out
 
+  # Deployment job
   deploy:
     environment:
       name: github-pages
@@ -99,6 +99,10 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v2
 ```
+
+----  
+2024-01-30追記:バージョンアップしました。
+----
 
 このファイルを設置後の大体のディレクトリ構成
 
