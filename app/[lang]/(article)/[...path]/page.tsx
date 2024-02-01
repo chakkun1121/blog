@@ -1,21 +1,21 @@
 import { notFound } from "next/navigation";
 import React from "react";
-import { getArticleData } from "../../lib/getArticleData";
-import { getAllArticleData } from "../../lib/getAllArticleData";
+import { getArticleData } from "../../../lib/getArticleData";
+import { getAllArticleData } from "../../../lib/getAllArticleData";
 import { ArticleFooter } from "./ArticleFooter";
 import { Article, WithContext } from "schema-dts";
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 import { BlogContent } from "./BlogContent";
 import { BlogShareButton } from "./BlogShareButton";
-import { getAllCategoryData } from "../../lib/getAllCategoryData";
-import { postType } from "../../../@types/postType";
-import { getCategoryAllFileData } from "../../lib/getCategoryAllFileData";
+import { getAllCategoryData } from "../../../lib/getAllCategoryData";
+import { postType } from "../../../../@types/postType";
+import { getCategoryAllFileData } from "../../../lib/getCategoryAllFileData";
 
 export default async function PostPage({
-  params: { path },
+  params: { lang,path },
 }: {
-  params: { path: string[] };
+  params: { lang:string,path: string[] };
 }) {
   const basePath = (publicRuntimeConfig && publicRuntimeConfig.basePath) || "";
   try {
@@ -61,7 +61,7 @@ export default async function PostPage({
     notFound();
   }
 }
-export async function generateStaticParams(): Promise<{ path: string[] }[]> {
+export async function generateStaticParams(): Promise<{ lang:string,path: string[] }[]> {
   const allArticles = [
     ...(await getAllArticleData()),
     ...(await getAllCategoryData().then((categories) => {
@@ -74,7 +74,7 @@ export async function generateStaticParams(): Promise<{ path: string[] }[]> {
   ].flat() as postType[];
   const paths = allArticles.map((article) => {
     return { path: article.link.split("/").filter((p) => p) };
-  });
+  }).map((p)=>([{...p,lang:"ja",},{...p,lang:"en"}])).flat();
   return paths;
 }
 export async function generateMetadata({ params: { path } }) {

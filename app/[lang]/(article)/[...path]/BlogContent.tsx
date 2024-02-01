@@ -1,9 +1,9 @@
 import React from "react";
-import { getArticleDataProps } from "../../lib/getArticleData";
+import { getArticleDataProps } from "../../../lib/getArticleData";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
-import CodeBlock from "../../_components/codeblock";
+import CodeBlock from "../../../_components/codeblock";
 
 export function BlogContent({
   data,

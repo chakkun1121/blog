@@ -1,5 +1,4 @@
 "use client";
-import React, { useEffect } from "react";
 import { CiShare2 } from "react-icons/ci";
 
 export function BlogShareButton({ url }) {
