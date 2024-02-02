@@ -35,13 +35,11 @@ permissions:
   contents: read
   pages: write
   id-token: write
-el in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
 
