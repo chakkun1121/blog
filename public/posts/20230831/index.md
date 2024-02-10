@@ -26,59 +26,37 @@ tags:
 次のように .github/workflows/nextjs.yml を作成します。
 
 ```yml
-name: Next.js製のアプリをpnpmを使ってデプロイする
+# .github/workflows/deploy.yml
 
 on:
   push:
     branches: ["main"]
+  workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
+  # Build job
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Node.js
+      - uses: actions/checkout@v4
+      - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
           node-version: latest
-
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: 8
-          run_install: false
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v4
-        name: Setup pnpm cache
-        with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+      - name: Install pnpm
+        run: npm install -g pnpm
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v2
-        with:
-          static_site_generator: next
-      - name: Build with Next.js
+        run: pnpm install
+      - name: Build
         run: pnpm next build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
@@ -98,9 +76,12 @@ jobs:
         uses: actions/deploy-pages@v2
 ```
 
-----  
-2024-01-30追記:バージョンアップしました。
-----
+**追記内容** 
+
+* 2024-01-30追記:バージョンアップしました。
+* 2024-02-10追記:何故か今までの方法では動かなかったので変更しました。[実験リポジトリ](https://github.com/chakkun1121/nextjs-github-build-test) (コミットメッセージが雑なのはお許しください。)
+
+**追記終了**
 
 このファイルを設置後の大体のディレクトリ構成
 
@@ -142,7 +123,7 @@ export async function generateStaticParams() {
 
 ### 2023-10-24追記
 
-next.js v13.5では、`Page <ページパス> is missing exported function "generateStaticParams()", which is required with "output: export" config.`と警告してくれるようになりました。これが出た場合は上記の通り`generateStaticParams`を追加してください。(ただし、何故かバグで表示されることもあるので怪しかったら実際にビルドしてみてください。)
+next.js v13.5以降では、`Page <ページパス> is missing exported function "generateStaticParams()", which is required with "output: export" config.`と警告してくれるようになりました。これが出た場合は上記の通り`generateStaticParams`を追加してください。(ただし、何故かバグで表示されることもあるので怪しかったら実際にビルドしてみてください。)
 
 ### 追記終了
 
