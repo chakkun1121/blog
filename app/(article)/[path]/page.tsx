@@ -8,21 +8,16 @@ import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 import { BlogContent } from "./BlogContent";
 import { BlogShareButton } from "./BlogShareButton";
-import { getAllCategoryData } from "../../lib/getAllCategoryData";
-import { postType } from "../../../@types/postType";
-import { getCategoryAllFileData } from "../../lib/getCategoryAllFileData";
+import { Metadata } from "next";
 
 export default async function PostPage({
   params: { path },
 }: {
-  params: { path: string[] };
+  params: { path: string };
 }) {
   const basePath = (publicRuntimeConfig && publicRuntimeConfig.basePath) || "";
   try {
-    const data = await getArticleData({
-      category: path[path.length - 2],
-      articleID: path[path.length - 1],
-    });
+    const data = await getArticleData(path);
     // mdのheader部分を除去したファイルを準備する
     const renderFile: string = data.file.replace(/^---[\s\S]*?---/, "");
     const jsonLd: WithContext<Article> = {
@@ -45,13 +40,9 @@ export default async function PostPage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <div className="flex w-full flex-col-reverse justify-center gap-4 md:flex-row">
-          <BlogShareButton url={basePath + path.join("/")} />
+          <BlogShareButton url={basePath + path} />
           <div className="flex w-full max-w-6xl flex-col gap-4">
-            <BlogContent
-              data={data}
-              renderFile={renderFile}
-              path={path.join("/")}
-            />
+            <BlogContent data={data} renderFile={renderFile} path={path} />
             <ArticleFooter />
           </div>
         </div>
@@ -61,44 +52,30 @@ export default async function PostPage({
     notFound();
   }
 }
-export async function generateStaticParams(): Promise<{ path: string[] }[]> {
-  const allArticles = [
-    ...(await getAllArticleData()),
-    ...(await getAllCategoryData().then((categories) => {
-      return Promise.all(
-        categories.map(async (category) => {
-          return await getCategoryAllFileData(category);
-        }),
-      );
-    })),
-  ].flat() as postType[];
-  const paths = allArticles.map((article) => {
-    return { path: article.link.split("/").filter((p) => p) };
+export async function generateStaticParams(): Promise<{ path: string }[]> {
+  const allArticles = await getAllArticleData();
+  return allArticles.map((article) => {
+    return { path: article.link.replace("/", "") };
   });
-  return paths;
 }
-export async function generateMetadata({ params: { path } }) {
-  try {
-    const data = await getArticleData({
-      category: path[path.length - 2],
-      articleID: path[path.length - 1],
-    });
-    const currentSiteUrl = `/${path.join("/")}`;
-    return {
+export async function generateMetadata({
+  params: { path },
+}): Promise<Metadata> {
+  const data = await getArticleData(path);
+  const currentSiteUrl = `/${path}`;
+  return {
+    title: data.title,
+    description: data.description,
+    alternates: {
+      canonical: currentSiteUrl,
+    },
+    openGraph: {
       title: data.title,
+      type: "website",
+      locale: "ja_JP",
+      url: currentSiteUrl,
       description: data.description,
-      alternates: {
-        canonical: currentSiteUrl,
-      },
-      openGraph: {
-        title: data.title,
-        type: "website",
-        locale: "ja_JP",
-        url: currentSiteUrl,
-        description: data.description,
-      },
-    };
-  } catch (e) {
-    throw new Error("記事が見つかりませんでした");
-  }
+      images: [`${currentSiteUrl}/og.png`],
+    },
+  };
 }

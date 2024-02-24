@@ -3,22 +3,11 @@ import matter from "gray-matter";
 import fsPromises from "fs/promises";
 import path from "path";
 
-export async function getArticleData({
-  category,
-  articleID,
-}: {
-  category?: string;
-  articleID: string;
-}): Promise<getArticleDataProps> {
+export async function getArticleData(
+  articleId: string,
+): Promise<getArticleDataProps> {
   const file = await fsPromises.readFile(
-    path.join(
-      process.cwd(),
-      "public",
-      "posts",
-      category ? category : "",
-      articleID,
-      "index.md",
-    ),
+    path.join(process.cwd(), "public", "posts", articleId, "index.md"),
     "utf-8",
   );
   const { data } = matter(file) as unknown as { data: postType };

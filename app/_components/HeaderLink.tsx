@@ -1,13 +1,7 @@
 import Link from "next/link";
 import { FaRss } from "react-icons/fa";
 
-export function HeaderLink({
-  tagName,
-  category,
-}: {
-  tagName?: string;
-  category?: string;
-}) {
+export function HeaderLink({ tagName }: { tagName?: string }) {
   return (
     <div className="md:flex">
       <h2 className="flex-1">

@@ -2,30 +2,17 @@ import fs, { promises as fsPromises } from "fs";
 import path from "path";
 import { postType } from "../../@types/postType";
 import { getArticleData } from "./getArticleData";
-export async function getAllArticleData(
-  category?: string,
-): Promise<postType[]> {
+export async function getAllArticleData(): Promise<postType[]> {
   const currentDir = process.cwd();
-  const searchDir = path.join(
-    currentDir,
-    "public",
-    "posts",
-    category ? category : "",
-  );
-  const files = (await fsPromises.readdir(searchDir)).filter(
-    (folderName: string) =>
-      fs.existsSync(path.join(searchDir, folderName, "index.md")),
-  );
+  const searchDir = path.join(currentDir, "public", "posts");
+  const files = await fsPromises.readdir(searchDir);
   const posts: postType[] = await Promise.all(
     files.map(async (file) => {
-      const articleData = await getArticleData({
-        articleID: file,
-        category: category,
-      });
+      const articleData = await getArticleData(file);
       if (articleData === undefined) return undefined;
       return {
         ...articleData,
-        link: "/" + (category ? category + "/" : "") + file.split(".")[0],
+        link: "/" + file.split(".")[0],
       };
     }),
   );
