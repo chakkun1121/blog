@@ -9,6 +9,7 @@ const { publicRuntimeConfig } = getConfig();
 import { BlogContent } from "./BlogContent";
 import { BlogShareButton } from "./BlogShareButton";
 import { Metadata } from "next";
+import { siteUrl } from "@/app/meta";
 
 export default async function PostPage({
   params: { path },
@@ -18,6 +19,7 @@ export default async function PostPage({
   const basePath = (publicRuntimeConfig && publicRuntimeConfig.basePath) || "";
   try {
     const data = await getArticleData(path);
+    if (!data) throw new Error("Can't access this article data.");
     // mdのheader部分を除去したファイルを準備する
     const renderFile: string = data.file.replace(/^---[\s\S]*?---/, "");
     const jsonLd: WithContext<Article> = {
@@ -40,7 +42,10 @@ export default async function PostPage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <div className="flex w-full flex-col-reverse justify-center gap-4 md:flex-row">
-          <BlogShareButton url={basePath + path} />
+          <BlogShareButton
+            url={new URL(path, siteUrl).toString()}
+            title={data.title}
+          />
           <div className="flex w-full max-w-6xl flex-col gap-4">
             <BlogContent data={data} renderFile={renderFile} path={path} />
             <ArticleFooter />
@@ -60,8 +65,11 @@ export async function generateStaticParams(): Promise<{ path: string }[]> {
 }
 export async function generateMetadata({
   params: { path },
+}: {
+  params: { path: string };
 }): Promise<Metadata> {
   const data = await getArticleData(path);
+  if (!data) throw new Error("Can't access this article data.");
   const currentSiteUrl = `/${path}`;
   return {
     title: data.title,
@@ -75,7 +83,7 @@ export async function generateMetadata({
       locale: "ja_JP",
       url: currentSiteUrl,
       description: data.description,
-      images: [`${currentSiteUrl}/og.png`],
+      images: [`${currentSiteUrl}/og.webp`],
     },
   };
 }

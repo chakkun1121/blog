@@ -1,10 +1,11 @@
-import "./global.css";
+import "./globals.css";
 import Header from "./_components/header";
 import Footer from "./_components/footer";
-import GoogleAnalytics from "./_components/GoogleAnalytics";
 import { Metadata, Viewport } from "next/types";
-import { Suspense } from "react";
+import { ReactNode, Suspense } from "react";
 import { siteUrl, siteTitle, siteDescription } from "./meta";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -41,16 +42,21 @@ export const viewport: Viewport = {
   themeColor: "#fef08a",
 };
 
-export default function Layout({ children }) {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja">
-      <Suspense fallback={<></>}>
-        <GoogleAnalytics />
-      </Suspense>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ""} />
       <body className="flex min-h-screen flex-col items-center gap-4">
-        <Header />
-        <main className="w-full flex-1 px-4">{children}</main>
-        <Footer />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <main className="w-full flex-1 px-4">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
