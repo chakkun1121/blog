@@ -60,6 +60,8 @@ export async function generateStaticParams(): Promise<{ path: string }[]> {
 }
 export async function generateMetadata({
   params: { path },
+}: {
+  params: { path: string };
 }): Promise<Metadata> {
   const data = await getArticleData(path);
   const currentSiteUrl = `/${path}`;
@@ -75,7 +77,7 @@ export async function generateMetadata({
       locale: "ja_JP",
       url: currentSiteUrl,
       description: data.description,
-      images: [`${currentSiteUrl}/og.png`],
+      images: [`${currentSiteUrl}/og.webp`],
     },
   };
 }

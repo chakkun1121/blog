@@ -13,7 +13,7 @@ export function PostCard({ post }: { post: postType }) {
         <AspectRatio ratio={40 / 21}>
           <img
             src={
-              post.image || new URL(`${post.link}/og.png`, siteUrl).toString()
+              post.image || new URL(`${post.link}/og.webp`, siteUrl).toString()
             }
             alt={post?.title + "のサムネイル"}
             className="rounded object-cover"
