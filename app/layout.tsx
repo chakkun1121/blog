@@ -5,6 +5,7 @@ import { Metadata, Viewport } from "next/types";
 import { ReactNode, Suspense } from "react";
 import { siteUrl, siteTitle, siteDescription } from "./meta";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -44,13 +45,18 @@ export const viewport: Viewport = {
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja">
-      <Suspense fallback={<></>}>
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ""} />
-      </Suspense>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ""} />
       <body className="flex min-h-screen flex-col items-center gap-4">
-        <Header />
-        <main className="w-full flex-1 px-4">{children}</main>
-        <Footer />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <main className="w-full flex-1 px-4">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -70,7 +70,9 @@ export function BlogContent({
             </table>
           ),
           code: ({ children }) => (
-            <code className="mx-2 rounded bg-gray-200 p-0.5">{children}</code>
+            <code className="mx-2 rounded bg-gray-200 p-0.5 dark:text-black">
+              {children}
+            </code>
           ),
         }}
         options={{

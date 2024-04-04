@@ -8,7 +8,7 @@ export function PostCard({ post }: { post: postType }) {
     <>
       <Link
         href={post?.link}
-        className="grid gap-y-2 rounded bg-orange-100 p-2 text-black no-underline [grid-row:span_3] [grid-template-rows:subgrid] visited:text-black"
+        className="bg-card grid gap-y-2 rounded p-2 [grid-row:span_3] [grid-template-rows:subgrid]"
       >
         <AspectRatio ratio={40 / 21}>
           <img
