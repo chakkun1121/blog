@@ -58,15 +58,19 @@ export function BlogContent({
           p: ({ children }) => (
             <p className="pl-6 leading-normal">{children}</p>
           ),
-          ul: ({ children }) => <ul className="ml-4">{children}</ul>,
+          ul: ({ children }) => <ul className="ml-4 list-disc">{children}</ul>,
           li: ({ children }) => (
-            <li className="list-inside list-disc">{children}</li>
+            <li className="list-inside pl-4">{children}</li>
           ),
+          ol: ({ children }) => <ol className="list-decimal">{children}</ol>,
           pre: ({ children }) => <CodeBlock>{children}</CodeBlock>,
           table: ({ children }) => (
-            <table className="block overflow-x-scroll whitespace-nowrap pl-4 ">
+            <table className="block overflow-x-scroll whitespace-nowrap pl-4">
               {children}
             </table>
+          ),
+          code: ({ children }) => (
+            <code className="mx-2 rounded bg-gray-200 p-0.5">{children}</code>
           ),
         }}
         options={{
