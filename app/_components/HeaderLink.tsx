@@ -4,7 +4,7 @@ import { FaRss } from "react-icons/fa";
 export function HeaderLink({ tagName }: { tagName?: string }) {
   return (
     <div className="md:flex">
-      <h2 className="flex-1">
+      <h2 className="flex-1 text-2xl">
         {tagName ? tagName + "の記事一覧" : "投稿一覧"}
       </h2>
       {!tagName && (

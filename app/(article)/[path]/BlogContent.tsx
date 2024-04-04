@@ -15,8 +15,8 @@ export function BlogContent({
   path: string;
 }) {
   return (
-    <article className="w-full rounded bg-gray-100 p-4">
-      <h1>{data.title}</h1>
+    <article className="w-full rounded p-4">
+      <h1 className="text-3xl">{data.title}</h1>
       <div>
         <p>
           投稿日:
@@ -52,9 +52,9 @@ export function BlogContent({
               />
             );
           },
-          h1: ({ children }) => <h1 className="pl-0">{children}</h1>,
-          h2: ({ children }) => <h2 className="pl-1">{children}</h2>,
-          h3: ({ children }) => <h3 className="pl-2">{children}</h3>,
+          h1: ({ children }) => <h1 className="pl-0 text-3xl">{children}</h1>,
+          h2: ({ children }) => <h2 className="pl-1 text-2xl">{children}</h2>,
+          h3: ({ children }) => <h3 className="pl-2 text-xl">{children}</h3>,
           h4: ({ children }) => <h4 className="pl-3">{children}</h4>,
           h5: ({ children }) => <h5 className="pl-4">{children}</h5>,
           h6: ({ children }) => <h6 className="pl-5">{children}</h6>,

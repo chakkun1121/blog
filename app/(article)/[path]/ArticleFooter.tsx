@@ -5,7 +5,7 @@ import { getAllArticleData } from "../../lib/getAllArticleData";
 export async function ArticleFooter() {
   const recentArticles = await getAllArticleData();
   return (
-    <div className="rounded bg-gray-100 p-4">
+    <div className="rounded p-4">
       <h2>最新の記事5件</h2>
       <ul>
         {recentArticles

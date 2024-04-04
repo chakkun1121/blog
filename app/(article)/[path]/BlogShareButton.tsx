@@ -9,7 +9,7 @@ export function BlogShareButton({ url }) {
   return (
     <div className="flex  flex-none flex-col items-center">
       <button
-        className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-200"
+        className="flex h-16 w-16 items-center justify-center rounded-full "
         onClick={shareURL}
         title="ページをシュア"
       >

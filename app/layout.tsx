@@ -1,4 +1,4 @@
-import "./global.css";
+import "./globals.css";
 import Header from "./_components/header";
 import Footer from "./_components/footer";
 import GoogleAnalytics from "./_components/GoogleAnalytics";

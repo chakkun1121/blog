@@ -14,7 +14,7 @@ export function PostCard({ post }: { post: postType }) {
           alt={post?.title + "のサムネイル"}
           className="aspect-video h-60 w-full rounded object-cover"
         />
-        <h3 className="block">{post?.title}</h3>
+        <h3 className="block text-xl">{post?.title}</h3>
         <p className="line-clamp-2 block text-M">{post?.description}</p>
       </Link>
     </>
