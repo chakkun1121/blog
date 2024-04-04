@@ -4,6 +4,8 @@ import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import CodeBlock from "../../_components/codeblock";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function BlogContent({
   data,
@@ -15,32 +17,26 @@ export function BlogContent({
   path: string;
 }) {
   return (
-    <article className="w-full rounded p-4">
+    <article className="w-full p-4">
       <h1 className="text-3xl">{data.title}</h1>
       <div>
         <p>
           投稿日:
           {new Date(data?.date || "")?.toLocaleDateString("ja-JP") || "不明"}
         </p>
-        <ul className="flex flex-wrap gap-4 py-4">
+        <div className="flex flex-wrap gap-4 py-4">
           {data?.tags?.map((tag) => (
-            <li key={tag} className="list-none">
-              <Link
-                href={"./tag/" + tag}
-                className="rounded bg-green-300 p-2 text-black no-underline visited:text-black"
-              >
-                {tag}
-              </Link>
-            </li>
+            <Button key={tag} className="list-none" asChild>
+              <Link href={"./tag/" + tag}>{tag}</Link>
+            </Button>
           ))}
-        </ul>
+        </div>
       </div>
       <MDXRemote
         source={renderFile}
         components={{
           a: (props) => <a target="_blank" {...props} />,
-          img: (p) => {
-            const { src, ...rest } = p;
+          img: ({ src, className, ...rest }) => {
             return (
               <img
                 src={
@@ -48,6 +44,7 @@ export function BlogContent({
                     ? src
                     : "./posts/" + path + src?.replace(/^.\//g, "/")
                 }
+                className={cn("max-h-full max-w-full rounded", className)}
                 {...rest}
               />
             );
@@ -58,7 +55,9 @@ export function BlogContent({
           h4: ({ children }) => <h4 className="pl-3">{children}</h4>,
           h5: ({ children }) => <h5 className="pl-4">{children}</h5>,
           h6: ({ children }) => <h6 className="pl-5">{children}</h6>,
-          p: ({ children }) => <p className="pl-6">{children}</p>,
+          p: ({ children }) => (
+            <p className="pl-6 leading-normal">{children}</p>
+          ),
           ul: ({ children }) => <ul className="ml-4">{children}</ul>,
           li: ({ children }) => (
             <li className="list-inside list-disc">{children}</li>
