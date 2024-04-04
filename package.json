@@ -8,9 +8,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mdx-js/loader": "^3.0.1",
-    "@mdx-js/react": "^3.0.1",
-    "@next/mdx": "^14.1.4",
     "@types/marked": "^6.0.0",
     "@types/mdx": "^2.0.12",
     "@types/react-syntax-highlighter": "^15.5.11",
