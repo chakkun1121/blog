@@ -1,23 +1,16 @@
 import Link from "next/link";
 import { postType } from "../../@types/postType";
-import getConfig from "next/config";
-const { publicRuntimeConfig } = getConfig();
-import styles from "./postCard.module.css";
+import { siteUrl } from "../meta";
 
 export function PostCard({ post }: { post: postType }) {
-  const basePath = (publicRuntimeConfig && publicRuntimeConfig.basePath) || "";
-
   return (
     <>
       <Link
         href={post?.link}
-        className={
-          "gap-y-2 rounded bg-orange-100 p-2 text-black no-underline visited:text-black " +
-          styles.link
-        }
+        className="grid gap-y-2 rounded bg-orange-100 p-2 text-black no-underline [grid-row:span_3] [grid-template-rows:subgrid] visited:text-black"
       >
         <img
-          src={post.image || basePath + "/img/no-image.webp"}
+          src={post.image || new URL(`${post.link}/og.png`, siteUrl).toString()}
           alt={post?.title + "のサムネイル"}
           className="aspect-video h-60 w-full rounded object-cover"
         />
