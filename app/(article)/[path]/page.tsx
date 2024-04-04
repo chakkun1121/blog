@@ -43,7 +43,7 @@ export default async function PostPage({
         />
         <div className="flex w-full flex-col-reverse justify-center gap-4 md:flex-row">
           <BlogShareButton
-            url={new URL(path, siteUrl).toString()}
+            url={new URL(path, `${siteUrl}/`).toString()}
             title={data.title}
           />
           <div className="flex w-full max-w-6xl flex-col gap-4">
