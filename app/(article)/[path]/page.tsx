@@ -9,6 +9,7 @@ const { publicRuntimeConfig } = getConfig();
 import { BlogContent } from "./BlogContent";
 import { BlogShareButton } from "./BlogShareButton";
 import { Metadata } from "next";
+import { siteUrl } from "@/app/meta";
 
 export default async function PostPage({
   params: { path },
@@ -41,7 +42,10 @@ export default async function PostPage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <div className="flex w-full flex-col-reverse justify-center gap-4 md:flex-row">
-          <BlogShareButton url={basePath + path} />
+          <BlogShareButton
+            url={new URL(path, siteUrl).toString()}
+            title={data.title}
+          />
           <div className="flex w-full max-w-6xl flex-col gap-4">
             <BlogContent data={data} renderFile={renderFile} path={path} />
             <ArticleFooter />
