@@ -1,10 +1,10 @@
 import "./globals.css";
 import Header from "./_components/header";
 import Footer from "./_components/footer";
-import GoogleAnalytics from "./_components/GoogleAnalytics";
 import { Metadata, Viewport } from "next/types";
 import { ReactNode, Suspense } from "react";
 import { siteUrl, siteTitle, siteDescription } from "./meta";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -45,7 +45,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja">
       <Suspense fallback={<></>}>
-        <GoogleAnalytics />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ""} />
       </Suspense>
       <body className="flex min-h-screen flex-col items-center gap-4">
         <Header />
