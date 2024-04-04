@@ -18,6 +18,7 @@ export default async function PostPage({
   const basePath = (publicRuntimeConfig && publicRuntimeConfig.basePath) || "";
   try {
     const data = await getArticleData(path);
+    if (!data) throw new Error("Can't access this article data.");
     // mdのheader部分を除去したファイルを準備する
     const renderFile: string = data.file.replace(/^---[\s\S]*?---/, "");
     const jsonLd: WithContext<Article> = {
@@ -64,6 +65,7 @@ export async function generateMetadata({
   params: { path: string };
 }): Promise<Metadata> {
   const data = await getArticleData(path);
+  if (!data) throw new Error("Can't access this article data.");
   const currentSiteUrl = `/${path}`;
   return {
     title: data.title,

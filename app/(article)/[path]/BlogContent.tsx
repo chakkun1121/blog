@@ -44,9 +44,9 @@ export function BlogContent({
             return (
               <img
                 src={
-                  src.startsWith("http")
+                  src?.startsWith("http")
                     ? src
-                    : "./posts/" + path + src.replace(/^.\//g, "/")
+                    : "./posts/" + path + src?.replace(/^.\//g, "/")
                 }
                 {...rest}
               />

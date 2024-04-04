@@ -18,7 +18,7 @@ export async function GET() {
       date: article.date,
       custom_elements: [
         {
-          tags: article.tags.map((tag) => ({
+          tags: article.tags?.map((tag) => ({
             tag: [{ _attr: { name: tag } }],
           })),
         },

@@ -1,8 +1,7 @@
 "use client";
-import React, { useEffect } from "react";
 import { CiShare2 } from "react-icons/ci";
 
-export function BlogShareButton({ url }) {
+export function BlogShareButton({ url }: { url: string }) {
   async function shareURL() {
     const result = await navigator.share({ url });
   }

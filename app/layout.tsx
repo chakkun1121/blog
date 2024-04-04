@@ -3,7 +3,7 @@ import Header from "./_components/header";
 import Footer from "./_components/footer";
 import GoogleAnalytics from "./_components/GoogleAnalytics";
 import { Metadata, Viewport } from "next/types";
-import { Suspense } from "react";
+import { ReactNode, Suspense } from "react";
 import { siteUrl, siteTitle, siteDescription } from "./meta";
 
 export const metadata: Metadata = {
@@ -41,7 +41,7 @@ export const viewport: Viewport = {
   themeColor: "#fef08a",
 };
 
-export default function Layout({ children }) {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja">
       <Suspense fallback={<></>}>

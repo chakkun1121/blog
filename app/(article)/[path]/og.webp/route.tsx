@@ -31,6 +31,7 @@ export async function GET(
   { params: { path } }: { params: { path: string } },
 ) {
   const articleData = await getArticleData(path);
+  if (!articleData) throw new Error("Can't access this article data");
   const width = 1200;
   const height = 630;
   const titleFontSize = `${maximizeFontSize({
@@ -74,7 +75,6 @@ export async function GET(
     {
       width,
       height,
-      
     },
   );
 }
