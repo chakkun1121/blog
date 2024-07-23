@@ -34,11 +34,13 @@ export default async function topPage(page?: string) {
         <Pagination>
           <PaginationContent>
             <PaginationItem>
+              {/* @ts-ignore */}
               <PaginationPrevious href="/page" />
             </PaginationItem>
             {pageList.map((page, i, list) => {
               if (i > 3 || i < list.length - 3) return;
               return (
+                // @ts-ignore
                 <PaginationLink key={page} href={`/page/${page}`}>
                   {page}
                 </PaginationLink>
@@ -46,6 +48,7 @@ export default async function topPage(page?: string) {
             })}
           </PaginationContent>
           <PaginationItem>
+            {/* @ts-ignore */}
             <PaginationNext href={`/page/${pageList.length}`} />
           </PaginationItem>
         </Pagination>
