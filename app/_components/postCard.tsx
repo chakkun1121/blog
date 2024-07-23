@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { postType } from "../../@types/postType";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { isDevMode } from "../meta";
 
 export function PostCard({ post }: { post: postType }) {
   return (
@@ -11,7 +12,9 @@ export function PostCard({ post }: { post: postType }) {
       >
         <AspectRatio ratio={40 / 21}>
           <img
-            src={post.image || `${post.link}/og.webp`}
+            src={
+              post.image || `${!isDevMode ? "/blog" : ""}${post.link}/og.webp`
+            }
             alt={post?.title + "のサムネイル"}
             className="rounded object-cover"
           />
